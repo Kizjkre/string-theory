@@ -1,0 +1,115 @@
+@font-face {
+  font-family: 'Micro5';
+  src: url('Micro5-Regular.ttf') format('truetype');
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes pop-shadow {
+  0% {
+    box-shadow: 0 0 0 0 #ff8fab;
+    filter: brightness(1);
+    scale: 1;
+  }
+
+  80% {
+    box-shadow: 0 0 0 5em transparent, 0 0 3em 0 #00000080;
+    filter: brightness(1.01);
+    scale: 1.05;
+  }
+
+  90% {
+    box-shadow: 0 0 0 0 transparent, 0 0 3em 0 #00000080;
+    filter: brightness(1.01);
+    scale: 1.05;
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+    filter: brightness(1);
+    scale: 1;
+  }
+}
+
+body, html {
+  height: 100dvh;
+  margin: 0;
+  overflow: hidden;
+  width: 100dvw;
+}
+
+body {
+  background: #01260A;
+  display: grid;
+  grid-template-areas: 'main'
+                       'fab';
+  grid-template-rows: minmax(0, 6fr) minmax(0, 4fr);
+}
+
+h1 {
+  color: #44F24F;
+  font-family: 'Micro5', monospace;
+  font-size: 64pt;
+}
+
+/* REF: https://css-tricks.com/books/greatest-css-tricks/pin-scrolling-to-bottom/ */
+#anchor {
+  height: 1px;
+  overflow-anchor: auto;
+}
+
+#fab {
+  align-items: center;
+  display: flex;
+  grid-area: fab;
+  justify-content: center;
+}
+
+#main {
+  border: 1em solid #ccc;
+  display: flex;
+  flex-direction: column;
+  grid-area: main;
+  justify-content: center;
+  padding: 2dvh 5dvw;
+  overflow: scroll;
+  overflow-anchor: none;
+}
+
+#question {
+  width: 80%;
+}
+
+#record {
+  all: unset;
+  animation: pop-shadow 1.5s ease-in-out infinite;
+  aspect-ratio: 1 / 1;
+  background: #fb6f92;
+  background-size: 400% 400% !important;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  min-height: 1px;
+  width: min(50vw, 50vh);
+  -webkit-user-select: none;
+
+  & > svg {
+    height: auto;
+    width: 50%;
+  }
+}
+
+#response {
+  align-self: end;
+  text-align: end;
+  width: 80%;
+}
