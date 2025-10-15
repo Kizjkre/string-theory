@@ -1,5 +1,5 @@
 {
-  "name": "friends",
+  "name": "string-theory",
   "module": "index.ts",
   "devDependencies": {
     "@types/bun": "latest"
