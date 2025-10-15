@@ -1,0 +1,10 @@
+body, html {
+  height: 100dvh;
+  margin: 0;
+  overflow: hidden;
+  width: 100dvw;
+}
+
+body {
+  background: #01260A;
+}
