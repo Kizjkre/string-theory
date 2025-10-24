@@ -11,5 +11,9 @@
   "scripts": {
     "dev": "bun run index.ts"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "osc": "^2.4.5",
+    "sentiment": "^5.0.2"
+  }
 }

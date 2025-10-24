@@ -1,5 +1,7 @@
 import { Peer } from 'https://esm.sh/peerjs@1.5.5?bundle-deps';
 
+const socket = new WebSocket('wss://localhost:3000/data');
+
 const connections = {};
 const connectionsObj = {};
 
@@ -30,17 +32,20 @@ peer.on('connection', conn => {
           const s = smallest(connections, conn.peer);
           connections[s]++;
           connectionsObj[s]?.send({ action: 'question', payload: data.payload });
+          socket.send(JSON.stringify(data));
           break;
         case 'recording':
+          const name = new Date().getTime() + '.mp3';
           const a = document.createElement('a');
           a.style.display = 'none';
           a.href = URL.createObjectURL(new Blob([data.payload], { type: 'audio/mp3' }));
-          a.download = new Date().getTime() + '.wav';
+          a.download = name;
           a.click();
           setTimeout(() => {
             URL.revokeObjectURL(a.href);
           }, 100);
           connections[conn.peer]--;
+          socket.send(JSON.stringify({ action: data.action, payload: name }))
           break;
       }
     });
