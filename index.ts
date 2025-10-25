@@ -59,7 +59,7 @@ serve({
             address: '/recording',
             args: [{
               type: 's',
-              value: message.payload
+              value: message.payload.replace('.mp3', '')
             }]
           }, 'localhost', 3001);
           break;

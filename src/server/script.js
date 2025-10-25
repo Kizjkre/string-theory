@@ -35,7 +35,7 @@ peer.on('connection', conn => {
           socket.send(JSON.stringify(data));
           break;
         case 'recording':
-          const name = new Date().getTime() + '.mp3';
+          const name = (new Date().getTime() - 1761348072475) + '.mp3';
           const a = document.createElement('a');
           a.style.display = 'none';
           a.href = URL.createObjectURL(new Blob([data.payload], { type: 'audio/mp3' }));
