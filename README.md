@@ -1,4 +1,4 @@
-# friends
+# String Theory
 
 To install dependencies:
 

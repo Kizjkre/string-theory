@@ -13,11 +13,30 @@ const peer = new Peer('92d7091d-6b23-4f18-8c2b-13cb98291a63123');
 // const peer = new Peer();
 
 peer.on('open', id => {
-  new QRCode(document.getElementById('qr'), {
-    text: 'https://ccrma.stanford.edu/~pengt/friends?id=' + id,
+  // Build a QR code sized responsively to the #qr container
+  const container = document.getElementById('qr');
+  let rect = { width: 0, height: 0 };
+  if (container) rect = container.getBoundingClientRect();
+  // Fallback when layout hasn't calculated sizes yet
+  if (!rect.width || !rect.height) {
+    const smaller = Math.min(window.innerWidth, window.innerHeight);
+    rect.width = rect.height = smaller * 0.6;
+  }
+  // Choose a square size slightly smaller than the container (in pixels)
+  const size = Math.floor(Math.min(rect.width, rect.height) * 0.78);
+
+  // Remove any previous child
+  if (container) container.innerHTML = '';
+
+  new QRCode(container, {
+    text: 'https://ccrma.stanford.edu/~pengt/string-theory?id=' + id,
+    width: size,
+    height: size,
     colorDark: '#eee',
-    colorLight: 'transparent'
+    colorLight: 'transparent',
+    correctLevel: QRCode.CorrectLevel.H
   });
+
   console.log('https://localhost:3000?id=' + id);
 });
 
@@ -57,4 +76,7 @@ peer.on('disconnected', conn => {
   delete connections[conn.peer];
   delete connectionsObj[conn.peer];
 });
+
+
+
 

@@ -66,6 +66,75 @@ h1 {
   overflow-anchor: auto;
 }
 
+#consent {
+  background: #000000cc; /* slightly stronger overlay */
+  color: white;
+  height: 100dvh;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100dvw;
+
+  /* center the content */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  /* make sure it sits above everything */
+  z-index: 9999;
+
+  /* use the project's Micro5 font */
+  font-family: 'Micro5', monospace;
+  padding: 2dvh 5dvw;
+  box-sizing: border-box;
+}
+
+#consent h3 {
+  margin: 0 0 0.5rem 0;
+  /* larger, responsive heading */
+  font-size: clamp(2rem, 6.5vw, 3.5rem);
+  line-height: 1.02;
+  letter-spacing: 0.02em;
+}
+
+#consent p {
+  margin: 0 0 1.25rem 0;
+  max-width: 60ch;
+  /* larger, more readable paragraph */
+  font-size: clamp(1.05rem, 2.8vw, 1.35rem);
+  line-height: 1.45;
+  opacity: 0.98;
+}
+
+#consent-button {
+  /* remove native button styles and restyle */
+  all: unset;
+  display: inline-block;
+  cursor: pointer;
+  background: #44F24F;
+  color: #01260A;
+  /* slightly larger button and text for readability */
+  padding: 0.9rem 1.4rem;
+  font-size: 1.05rem;
+  border-radius: 999px;
+  font-family: inherit;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+  transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#consent-button:hover {
+  transform: translateY(-2px);
+}
+
+#consent-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+}
+
 #fab {
   align-items: center;
   display: flex;

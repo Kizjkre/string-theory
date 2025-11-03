@@ -23,6 +23,26 @@ conn.then(c => {
 
 let transcript = '';
 
+// consent handling: hide #consent when the user clicks the button and persist choice
+(function handleConsent() {
+  const consent = document.getElementById('consent');
+  const consentButton = document.getElementById('consent-button');
+  if (!consent || !consentButton) return;
+
+  const hide = () => {
+    consent.style.display = 'none';
+    try { localStorage.setItem('consentGiven', 'true'); } catch (e) { /* ignore */ }
+  };
+
+  // Immediately hide if previously given
+  try {
+    if (localStorage.getItem('consentGiven') === 'true') hide();
+  } catch (e) { /* ignore */ }
+
+  consentButton.addEventListener('click', hide);
+  consentButton.addEventListener('touchend', hide);
+})();
+
 const record = document.getElementById('record');
 const question = document.getElementById('question');
 const response = document.getElementById('response');
