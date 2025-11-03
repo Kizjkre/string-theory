@@ -6,6 +6,8 @@ import Sentiment from 'sentiment';
 // REF:https://apple.stackexchange.com/a/20553
 // const ip = execSync('ipconfig getifaddr en1').toString().trim();
 
+let i = 0;
+
 const sentiment = new Sentiment();
 
 const port = new osc.UDPPort({
@@ -45,12 +47,38 @@ serve({
       message = JSON.parse(message);
       switch (message.action) {
         case 'transcript':
+          port.send({
+            address: '/index',
+            args: [{
+              type: 'f',
+              value: i++
+            }]
+          }, 'localhost', 3001);
+
+          i %= 4;
+
           const { comparative } = sentiment.analyze(message.payload);
           port.send({
             address: '/sentiment',
             args: [{
               type: 'f',
               value: comparative
+            }]
+          }, 'localhost', 3001);
+
+          port.send({
+            address: '/transcript',
+            args: [{
+              type: 's',
+              value: message.payload
+            }]
+          }, 'localhost', 3001);
+
+          port.send({
+            address: '/length',
+            args: [{
+              type: 's',
+              value: message.payload.length
             }]
           }, 'localhost', 3001);
           break;

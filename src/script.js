@@ -8,6 +8,7 @@ const open = new Promise(res => peer.on('open', () => res()));
 const conn = open.then(() => peer.connect(id));
 
 const questions = [];
+let idle = true;
 
 conn.then(c => {
   c.on('open', () => {
@@ -15,6 +16,11 @@ conn.then(c => {
       switch (data.action) {
         case 'question':
           questions.push(data.payload);
+          if (idle) {
+            question.innerText = questions.shift();
+            response.innerText = '';
+            idle = false;
+          }
           break;
       }
     });
@@ -58,6 +64,7 @@ recorder.initAudio();
 recorder.initWorker();
 
 const start = async () => {
+  idle = false;
   await recorder.initAudio();
   await recorder.initWorker();
   recognition.start();
@@ -71,8 +78,14 @@ const end = async () => {
   const blob = await recorder.stopRecording();
   (await conn).send({ action: 'recording', payload: blob });
 
-  const q = questions.shift();
-  question.innerText = q ? q : '';
+  if (questions.length < 1) {
+    setTimeout(() => idle = true, 100);
+    return;
+  }
+  setTimeout(() => {
+    question.innerText = questions.shift();
+    response.innerText = '';
+  }, 100);
 };
 
 record.addEventListener('mousedown', start);

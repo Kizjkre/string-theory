@@ -45,6 +45,7 @@ peer.on('connection', conn => {
   connectionsObj[conn.peer] = conn;
 
   conn.on('open', () => {
+    console.log('Peer connection opened:', conn.peer);
     conn.on('data', data => {
       switch (data.action) {
         case 'transcript':
@@ -69,14 +70,34 @@ peer.on('connection', conn => {
       }
     });
   });
+
+  // Properly handle when a peer connection is closed: remove keys from tracking objects
+  conn.on('close', () => {
+    try {
+      const pid = conn.peer;
+      if (pid && pid in connections) delete connections[pid];
+      if (pid && pid in connectionsObj) delete connectionsObj[pid];
+      console.log('Peer connection closed:', pid);
+    } catch (e) {
+      console.warn('Error while handling connection close', e);
+    }
+  });
+
+  // Handle connection errors and clean up as well
+  conn.on('error', err => {
+    console.warn('Peer connection error for', conn.peer, err);
+    try {
+      const pid = conn.peer;
+      if (pid && pid in connections) delete connections[pid];
+      if (pid && pid in connectionsObj) delete connectionsObj[pid];
+    } catch (e) {
+      console.warn('Error while cleaning up after connection error', e);
+    }
+  });
 });
 
-// BUG: Not working
-peer.on('disconnected', conn => {
-  delete connections[conn.peer];
-  delete connectionsObj[conn.peer];
+// Remove incorrect handler that treated 'disconnected' as supplying a connection
+// Instead, listen to peer-level events without assuming a conn argument.
+peer.on('disconnected', () => {
+  console.log('Peer object disconnected from PeerServer (no conn argument).');
 });
-
-
-
-
