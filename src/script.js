@@ -1,31 +1,9 @@
-import { Peer } from 'https://esm.sh/peerjs@1.5.5?bundle-deps';
 import vmsg from 'https://unpkg.com/vmsg@0.4.0/vmsg.js';
 
-const id = new URLSearchParams(window.location.search).get('id');
-
-const peer = new Peer();
-const open = new Promise(res => peer.on('open', () => res()));
-const conn = open.then(() => peer.connect(id));
-
-const questions = [];
-let idle = true;
-
-conn.then(c => {
-  c.on('open', () => {
-    c.on('data', data => {
-      switch (data.action) {
-        case 'question':
-          questions.push(data.payload);
-          if (idle) {
-            question.innerText = questions.shift();
-            response.innerText = '';
-            idle = false;
-          }
-          break;
-      }
-    });
-  });
-});
+// Initialize Supabase
+const supabaseUrl = 'https://fclgscomprqelpmrqczr.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjbGdzY29tcHJxZWxwbXJxY3pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0MjA4MzgsImV4cCI6MjA3Nzk5NjgzOH0.aTFXezaB0ck7jvMavFizzBKi84WyLHpmwU9K0nCQvYM';
+const sb = supabase.createClient(supabaseUrl, supabaseKey);
 
 let transcript = '';
 
@@ -37,13 +15,17 @@ let transcript = '';
 
   const hide = () => {
     consent.style.display = 'none';
-    try { localStorage.setItem('consentGiven', 'true'); } catch (e) { /* ignore */ }
+    try {
+      localStorage.setItem('consentGiven', 'true');
+    } catch (e) { /* ignore */
+    }
   };
 
   // Immediately hide if previously given
   try {
     if (localStorage.getItem('consentGiven') === 'true') hide();
-  } catch (e) { /* ignore */ }
+  } catch (e) { /* ignore */
+  }
 
   consentButton.addEventListener('click', hide);
   consentButton.addEventListener('touchend', hide);
@@ -64,7 +46,6 @@ recorder.initAudio();
 recorder.initWorker();
 
 const start = async () => {
-  idle = false;
   await recorder.initAudio();
   await recorder.initWorker();
   recognition.start();
@@ -74,16 +55,31 @@ const start = async () => {
 
 const end = async () => {
   recognition.stop();
-  (await conn).send({ action: 'transcript', payload: transcript });
   const blob = await recorder.stopRecording();
-  (await conn).send({ action: 'recording', payload: blob });
+  const name = new Date().getTime() - 1762476016805 - 86248153 - 10246049;
 
-  if (questions.length < 1) {
-    setTimeout(() => idle = true, 100);
-    return;
-  }
+  await sb.storage
+    .from('samples') // Your Supabase bucket name
+    .upload(name + '.mp3', blob);
+
+  await sb.storage
+    .from('transcripts') // Your Supabase bucket name
+    .upload(name + '.txt', transcript);
+
+  const { data, error } = await sb.storage
+    .from('transcripts') // Replace with your bucket name
+    .list('', {
+      // Optionally, you can pass filters like the prefix (e.g., to list files in a specific folder).
+      // Set `limit` to limit the number of files returned.
+      limit: 5 // Max number of files to list per request
+    });
+
+  const index = Math.floor(Math.random() * data.length);
+  const transcriptFile = await fetch(`https://fclgscomprqelpmrqczr.supabase.co/storage/v1/object/public/transcripts/${data[index].name}`);
+  const prompt = await transcriptFile.text();
+
   setTimeout(() => {
-    question.innerText = questions.shift();
+    question.innerText = prompt;
     response.innerText = '';
   }, 100);
 };

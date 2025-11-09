@@ -1,103 +1,68 @@
-import { Peer } from 'https://esm.sh/peerjs@1.5.5?bundle-deps';
+// https://sxjwebhpxguphepvsbth.supabase.co/storage/v1/object/public/transcripts
 
 const socket = new WebSocket('wss://localhost:3000/data');
 
-const connections = {};
-const connectionsObj = {};
+// Initialize Supabase
+const supabaseUrl = 'https://fclgscomprqelpmrqczr.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjbGdzY29tcHJxZWxwbXJxY3pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0MjA4MzgsImV4cCI6MjA3Nzk5NjgzOH0.aTFXezaB0ck7jvMavFizzBKi84WyLHpmwU9K0nCQvYM';
+const sb = supabase.createClient(supabaseUrl, supabaseKey);
 
-const smallest = (obj, excludeKey) => Object.entries(obj)
-  .filter(([key]) => key !== excludeKey)
-  .reduce((min, [key, value]) => min === null || value < obj[min] ? key : min, null);
+const prev = JSON.parse(localStorage.getItem('read'));
+const readFiles = new Set(prev);
 
-const peer = new Peer('92d7091d-6b23-4f18-8c2b-13cb98291a63123');
-// const peer = new Peer();
+const dl = async () => {
+  const { data, error } = await sb.storage
+    .from('transcripts') // Replace with your bucket name
+    .list('');
 
-peer.on('open', id => {
-  // Build a QR code sized responsively to the #qr container
-  const container = document.getElementById('qr');
-  let rect = { width: 0, height: 0 };
-  if (container) rect = container.getBoundingClientRect();
-  // Fallback when layout hasn't calculated sizes yet
-  if (!rect.width || !rect.height) {
-    const smaller = Math.min(window.innerWidth, window.innerHeight);
-    rect.width = rect.height = smaller * 0.6;
-  }
-  // Choose a square size slightly smaller than the container (in pixels)
-  const size = Math.floor(Math.min(rect.width, rect.height) * 0.78);
+  const f = data.filter(d => !readFiles.has(d.name)).map(d => d.name);
 
-  // Remove any previous child
-  if (container) container.innerHTML = '';
+  const files = await Promise.all(f.map(async (file) => {
+    const response = await fetch(`https://fclgscomprqelpmrqczr.supabase.co/storage/v1/object/public/transcripts/${file}`);
+    const text = await response.text();
+    return [file.replace('.txt', ''), text];
+  }));
 
-  new QRCode(container, {
-    text: 'https://ccrma.stanford.edu/~pengt/string-theory?id=' + id,
-    width: size,
-    height: size,
-    colorDark: '#eee',
-    colorLight: 'transparent',
-    correctLevel: QRCode.CorrectLevel.H
-  });
+  data.forEach(d => readFiles.add(d.name));
+  localStorage.setItem('read', JSON.stringify([...readFiles]));
 
-  console.log('https://localhost:3000?id=' + id);
-});
+  const recordings = await Promise.all(f.map(async (file) => {
+    const response = await fetch(`https://fclgscomprqelpmrqczr.supabase.co/storage/v1/object/public/samples/${file.replace('.txt', '.mp3')}`);
+    const text = await response.blob();
+    return [file.replace('.txt', '.mp3'), text];
+  }));
 
-peer.on('connection', conn => {
-  connections[conn.peer] = 0;
-  connectionsObj[conn.peer] = conn;
-
-  conn.on('open', () => {
-    console.log('Peer connection opened:', conn.peer);
-    conn.on('data', data => {
-      switch (data.action) {
-        case 'transcript':
-          const s = smallest(connections, conn.peer);
-          connections[s]++;
-          connectionsObj[s]?.send({ action: 'question', payload: data.payload });
-          socket.send(JSON.stringify(data));
-          break;
-        case 'recording':
-          const name = (new Date().getTime() - 1761348072475) + '.mp3';
-          const a = document.createElement('a');
-          a.style.display = 'none';
-          a.href = URL.createObjectURL(new Blob([data.payload], { type: 'audio/mp3' }));
-          a.download = name;
-          a.click();
-          setTimeout(() => {
-            URL.revokeObjectURL(a.href);
-          }, 100);
-          connections[conn.peer]--;
-          socket.send(JSON.stringify({ action: data.action, payload: name }))
-          break;
-      }
+  files.forEach(file => {
+    console.log(file);
+    const button = document.createElement('button');
+    button.addEventListener('click', () => {
+      socket.send(JSON.stringify({
+        action: 'files',
+        payload: file
+      }));
+      button.remove();
     });
+    button.textContent = file[0] || 'No Transcript';
+    document.getElementById('files').appendChild(button);
   });
 
-  // Properly handle when a peer connection is closed: remove keys from tracking objects
-  conn.on('close', () => {
-    try {
-      const pid = conn.peer;
-      if (pid && pid in connections) delete connections[pid];
-      if (pid && pid in connectionsObj) delete connectionsObj[pid];
-      console.log('Peer connection closed:', pid);
-    } catch (e) {
-      console.warn('Error while handling connection close', e);
-    }
-  });
+  const recordingsDownload = await Promise.all(recordings.map(async ([name, blob]) => {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  }));
+};
 
-  // Handle connection errors and clean up as well
-  conn.on('error', err => {
-    console.warn('Peer connection error for', conn.peer, err);
-    try {
-      const pid = conn.peer;
-      if (pid && pid in connections) delete connections[pid];
-      if (pid && pid in connectionsObj) delete connectionsObj[pid];
-    } catch (e) {
-      console.warn('Error while cleaning up after connection error', e);
-    }
-  });
-});
+document.getElementById('refresh').addEventListener('click', () => dl());
 
-// Remove incorrect handler that treated 'disconnected' as supplying a connection
-// Instead, listen to peer-level events without assuming a conn argument.
-peer.on('disconnected', () => {
-  console.log('Peer object disconnected from PeerServer (no conn argument).');
-});
+dl();
+
+setInterval(async () => {
+  dl();
+}, 30000);
