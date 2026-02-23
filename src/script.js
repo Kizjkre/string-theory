@@ -1,30 +1,34 @@
 import vmsg from 'https://unpkg.com/vmsg@0.4.0/vmsg.js';
+import 'https://unpkg.com/ml5@latest/dist/ml5.min.js';
 
-// Initialize Supabase
-const supabaseUrl = 'https://fclgscomprqelpmrqczr.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjbGdzY29tcHJxZWxwbXJxY3pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0MjA4MzgsImV4cCI6MjA3Nzk5NjgzOH0.aTFXezaB0ck7jvMavFizzBKi84WyLHpmwU9K0nCQvYM';
+const supabaseUrl = 'https://tqedlevqairojifyhnio.supabase.co';
+const supabaseKey = 'sb_publishable_jZV7qmRKCILC1ucln0cCpw_pgN6ZFDK';
 const sb = supabase.createClient(supabaseUrl, supabaseKey);
 
 let transcript = '';
+let id = '';
+let count = 0;
 
-// consent handling: hide #consent when the user clicks the button and persist choice
-(function handleConsent() {
+const sentiment = await ml5.sentiment('MovieReviews');
+
+(() => {
   const consent = document.getElementById('consent');
   const consentButton = document.getElementById('consent-button');
   if (!consent || !consentButton) return;
 
   const hide = () => {
     consent.style.display = 'none';
-    try {
-      localStorage.setItem('consentGiven', 'true');
-    } catch (e) { /* ignore */
-    }
+    localStorage.setItem('consentGiven', 'true');
   };
 
-  // Immediately hide if previously given
-  try {
-    if (localStorage.getItem('consentGiven') === 'true') hide();
-  } catch (e) { /* ignore */
+  if (localStorage.getItem('consentGiven') === 'true') {
+    hide();
+    count = +localStorage.getItem('count');
+    id = localStorage.getItem('uuid');
+  } else {
+    id = crypto.randomUUID();
+    localStorage.setItem('uuid', id);
+    localStorage.setItem('count', count);
   }
 
   consentButton.addEventListener('click', hide);
@@ -52,31 +56,30 @@ const start = async () => {
   recorder.startRecording();
 };
 
-
 const end = async () => {
   recognition.stop();
   const blob = await recorder.stopRecording();
-  const name = new Date().getTime() - 1762476016805 - 86248153 - 10246049;
+  const name = `${ id }-${ count }`;
+
+  const score = await new Promise(res => sentiment.predict(transcript, () => res()));
 
   await sb.storage
-    .from('samples') // Your Supabase bucket name
+    .from('samples')
     .upload(name + '.mp3', blob);
 
   await sb.storage
-    .from('transcripts') // Your Supabase bucket name
-    .upload(name + '.txt', transcript);
+    .from('transcripts')
+    .upload(name + '.txt', transcript + '\n' + score);
 
-  const { data, error } = await sb.storage
-    .from('transcripts') // Replace with your bucket name
+  const { data } = await sb.storage
+    .from('transcripts')
     .list('', {
-      // Optionally, you can pass filters like the prefix (e.g., to list files in a specific folder).
-      // Set `limit` to limit the number of files returned.
-      limit: 5 // Max number of files to list per request
+      limit: 5
     });
 
   const index = Math.floor(Math.random() * data.length);
-  const transcriptFile = await fetch(`https://fclgscomprqelpmrqczr.supabase.co/storage/v1/object/public/transcripts/${data[index].name}`);
-  const prompt = await transcriptFile.text();
+  const transcriptFile = await fetch(`${ supabaseUrl }/storage/v1/object/public/transcripts/${ data[index].name }`);
+  const prompt = (await transcriptFile.text()).split('\n')[0];
 
   setTimeout(() => {
     question.innerText = prompt;

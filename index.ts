@@ -28,7 +28,6 @@ serve({
         : new Response('WebSocket upgrade error', { status: 400 });
     }
 
-    // Serve static files from src/
     let filePath = './src' + (url.pathname === '/' ? '/index.html' : url.pathname);
     let file = Bun.file(filePath);
 
