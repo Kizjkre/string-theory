@@ -2,35 +2,73 @@
 	"patcher" : 	{
 		"fileversion" : 1,
 		"appversion" : 		{
-			"major" : 9,
-			"minor" : 0,
-			"revision" : 8,
+			"major" : 8,
+			"minor" : 6,
+			"revision" : 5,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
 		"rect" : [ 0.0, 0.0, 1000.0, 780.0 ],
+		"bglocked" : 0,
+		"openinpresentation" : 0,
+		"default_fontsize" : 12.0,
+		"default_fontface" : 0,
+		"default_fontname" : "Arial",
+		"gridonopen" : 1,
 		"gridsize" : [ 15.0, 15.0 ],
+		"gridsnaponopen" : 1,
+		"objectsnaponopen" : 1,
+		"statusbarvisible" : 2,
+		"toolbarvisible" : 1,
+		"lefttoolbarpinned" : 0,
+		"toptoolbarpinned" : 0,
+		"righttoolbarpinned" : 0,
+		"bottomtoolbarpinned" : 0,
+		"toolbars_unpinned_last_save" : 0,
+		"tallnewobj" : 0,
+		"boxanimatetime" : 200,
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
+		"style" : "",
+		"subpatcher_template" : "",
+		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-10",
-					"maxclass" : "mc.ezdac~",
+					"id" : "obj-7",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 115.0, 575.728147447109222, 45.0, 45.0 ]
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 231.0, 67.0, 58.0, 22.0 ],
+					"text" : "loadbang"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-9",
-					"maxclass" : "newobj",
+					"id" : "obj-1",
+					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 376.699023962020874, 456.310673356056213, 66.0, 22.0 ],
-					"text" : "cycle~ 440"
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 231.0, 113.0, 61.0, 22.0 ],
+					"text" : "Port 3003"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-10",
+					"maxclass" : "mc.ezdac~",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 146.0, 576.0, 45.0, 45.0 ]
 				}
 
 			}
@@ -41,7 +79,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 146.0, 114.0, 75.0, 22.0 ],
+					"patching_rect" : [ 146.0, 113.0, 75.0, 22.0 ],
 					"text" : "route Output"
 				}
 
@@ -53,7 +91,7 @@
 					"numinlets" : 4,
 					"numoutlets" : 1,
 					"outlettype" : [ "multichannelsignal" ],
-					"patching_rect" : [ 115.0, 514.0, 70.0, 22.0 ],
+					"patching_rect" : [ 146.0, 514.0, 70.0, 22.0 ],
 					"text" : "mc.pack~ 4"
 				}
 
@@ -65,7 +103,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 4,
 					"outlettype" : [ "signal", "signal", "signal", "signal" ],
-					"patching_rect" : [ 115.0, 477.0, 50.5, 22.0 ],
+					"patching_rect" : [ 146.0, 477.0, 50.5, 22.0 ],
 					"text" : "gate~ 4"
 				}
 
@@ -78,10 +116,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 146.0, 67.0, 19.0, 22.0 ],
-					"saved_object_attributes" : 					{
-						"attr_comment" : ""
-					}
-,
 					"text" : "in"
 				}
 
@@ -102,7 +136,7 @@
 					"numoutlets" : 4,
 					"offset" : [ 0.0, 0.0 ],
 					"outlettype" : [ "signal", "signal", "", "" ],
-					"patching_rect" : [ 146.0, 168.0, 777.0, 196.0 ],
+					"patching_rect" : [ 202.0, 167.0, 777.0, 196.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_invisible" : 1,
@@ -117,7 +151,7 @@
 					"saved_object_attributes" : 					{
 						"parameter_enable" : 1,
 						"patchername" : "stgranulator.amxd",
-						"patchername_fallback" : "~/Documents/Projects/string-theory/audio/stgranulator.amxd"
+						"patchername_fallback" : "~/Documents/CS/Projects/string-theory/audio/stgranulator.amxd"
 					}
 ,
 					"snapshot" : 					{
@@ -131,7 +165,7 @@
 						"embed" : 1,
 						"snapshot" : 						{
 							"name" : "stgranulator.amxd",
-							"origname" : "~/Documents/Projects/string-theory/audio/stgranulator.amxd",
+							"origname" : "~/Documents/CS/Projects/string-theory/audio/stgranulator.amxd",
 							"valuedictionary" : 							{
 								"parameter_values" : 								{
 									"AEnvAmount" : 0.0,
@@ -143,7 +177,7 @@
 									"AGain" : 0.0,
 									"AMOn" : 1.0,
 									"AResonance" : 1.706237840420901,
-									"Address" : 1.0,
+									"Address" : 0.0,
 									"AmpVoidResidual" : 0.0,
 									"BEnvAmount" : 0.0,
 									"BFilterOn" : 1.0,
@@ -160,7 +194,7 @@
 									"FMAmt<Key" : 0.0,
 									"FMFreq" : 8141.889447236180786,
 									"FMOn" : 0.0,
-									"FilePos" : 50.0,
+									"FilePos" : 46.675669648289343,
 									"FilePos<Key" : 0.0,
 									"FilePos<Rnd" : 0.0,
 									"FilterEnvAttack" : 1.0,
@@ -173,11 +207,11 @@
 									"Grain<Key" : 100.0,
 									"Grain<LFO" : 0.0,
 									"Grain<Random" : 0.0,
-									"GrainSize" : 47.653356132575297,
+									"GrainSize" : 0.25,
 									"GrainSpread" : 0.0,
 									"Hold" : 0.0,
 									"LFOSlow" : 0.0,
-									"Port" : 3001.0,
+									"Port" : 3003.0,
 									"Pos<LFO" : 0.0,
 									"PosLFO<Key" : 100.0,
 									"PosLFOCycle" : 46063.460124514494964,
@@ -240,7 +274,7 @@
 									"embed" : 0,
 									"snapshot" : 									{
 										"name" : "stgranulator.amxd",
-										"origname" : "~/Documents/Projects/string-theory/audio/stgranulator.amxd",
+										"origname" : "~/Documents/CS/Projects/string-theory/audio/stgranulator.amxd",
 										"valuedictionary" : 										{
 											"parameter_values" : 											{
 												"AEnvAmount" : 0.0,
@@ -252,7 +286,7 @@
 												"AGain" : 0.0,
 												"AMOn" : 1.0,
 												"AResonance" : 1.706237840420901,
-												"Address" : 1.0,
+												"Address" : 0.0,
 												"AmpVoidResidual" : 0.0,
 												"BEnvAmount" : 0.0,
 												"BFilterOn" : 1.0,
@@ -269,7 +303,7 @@
 												"FMAmt<Key" : 0.0,
 												"FMFreq" : 8141.889447236180786,
 												"FMOn" : 0.0,
-												"FilePos" : 50.0,
+												"FilePos" : 46.675669648289343,
 												"FilePos<Key" : 0.0,
 												"FilePos<Rnd" : 0.0,
 												"FilterEnvAttack" : 1.0,
@@ -282,11 +316,11 @@
 												"Grain<Key" : 100.0,
 												"Grain<LFO" : 0.0,
 												"Grain<Random" : 0.0,
-												"GrainSize" : 47.653356132575297,
+												"GrainSize" : 0.25,
 												"GrainSpread" : 0.0,
 												"Hold" : 0.0,
 												"LFOSlow" : 0.0,
-												"Port" : 3001.0,
+												"Port" : 3003.0,
 												"Pos<LFO" : 0.0,
 												"PosLFO<Key" : 100.0,
 												"PosLFOCycle" : 46063.460124514494964,
@@ -339,9 +373,9 @@
 									"fileref" : 									{
 										"name" : "stgranulator.amxd",
 										"filename" : "stgranulator.amxd.maxsnap",
-										"filepath" : "~/Documents/Max 9/Snapshots",
+										"filepath" : "~/Documents/Max 8/Snapshots",
 										"filepos" : -1,
-										"snapshotfileid" : "8d5c5a4772b69bb1cd300480a9bc864b"
+										"snapshotfileid" : "0a57fb0509e7bab30ef2d5d9d9bab8c4"
 									}
 
 								}
@@ -356,10 +390,10 @@
 									"embed" : 0,
 									"fileref" : 									{
 										"name" : "stgranulator.amxd",
-										"filename" : "stgranulator.amxd_20251024.maxsnap",
-										"filepath" : "~/Documents/Max 9/Snapshots",
+										"filename" : "stgranulator.amxd_20251104.maxsnap",
+										"filepath" : "~/Documents/Max 8/Snapshots",
 										"filepos" : -1,
-										"snapshotfileid" : "25ed14689cda95921032d5c8636e8da2"
+										"snapshotfileid" : "50d2a92dee4c7d5aa9c5d13e4bff5ef8"
 									}
 
 								}
@@ -367,17 +401,17 @@
 									"filetype" : "C74Snapshot",
 									"version" : 2,
 									"minorversion" : 0,
-									"name" : "stgranulator.amxd[1]",
+									"name" : "stgranulator.amxd",
 									"origin" : "stgranulator.amxd",
 									"type" : "amxd",
 									"subtype" : "Undefined",
 									"embed" : 0,
 									"fileref" : 									{
-										"name" : "stgranulator.amxd[1]",
-										"filename" : "stgranulator.amxd[1].maxsnap",
-										"filepath" : "~/Documents/Max 9/Snapshots",
+										"name" : "stgranulator.amxd",
+										"filename" : "stgranulator.amxd_20251104_1.maxsnap",
+										"filepath" : "~/Documents/Max 8/Snapshots",
 										"filepos" : -1,
-										"snapshotfileid" : "9c20a3da9ef48dc6295650b289f66ba5"
+										"snapshotfileid" : "4a546b004a995a8b73d791e36401b3b5"
 									}
 
 								}
@@ -385,17 +419,17 @@
 									"filetype" : "C74Snapshot",
 									"version" : 2,
 									"minorversion" : 0,
-									"name" : "stgranulator.amxd[2]",
+									"name" : "stgranulator.amxd",
 									"origin" : "stgranulator.amxd",
 									"type" : "amxd",
 									"subtype" : "Undefined",
 									"embed" : 0,
 									"fileref" : 									{
-										"name" : "stgranulator.amxd[2]",
-										"filename" : "stgranulator.amxd[2].maxsnap",
-										"filepath" : "~/Documents/Max 9/Snapshots",
+										"name" : "stgranulator.amxd",
+										"filename" : "stgranulator.amxd_20251104_2.maxsnap",
+										"filepath" : "~/Documents/Max 8/Snapshots",
 										"filepos" : -1,
-										"snapshotfileid" : "e31d3396d58a2cbe9fb24f3f9a4f79f9"
+										"snapshotfileid" : "142f241cbba8222d08d88c30d9aab5ca"
 									}
 
 								}
@@ -417,13 +451,20 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 904.0, 114.0, 40.0, 22.0 ],
+					"patching_rect" : [ 960.0, 113.0, 40.0, 22.0 ],
 					"text" : "midiin"
 				}
 
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-6", 3 ],
 					"source" : [ "obj-2", 3 ]
@@ -481,6 +522,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"source" : [ "obj-8", 0 ]
 				}
@@ -490,13 +538,6 @@
 				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
 					"source" : [ "obj-8", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-2", 1 ],
-					"source" : [ "obj-9", 0 ]
 				}
 
 			}
@@ -537,36 +578,36 @@
 			}
 , 			{
 				"name" : "stgranulator.amxd",
-				"bootpath" : "~/Documents/Projects/string-theory/audio",
+				"bootpath" : "~/Documents/CS/Projects/string-theory/audio",
 				"patcherrelativepath" : ".",
 				"type" : "amxd",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "stgranulator.amxd.maxsnap",
-				"bootpath" : "~/Documents/Max 9/Snapshots",
-				"patcherrelativepath" : "../../../Max 9/Snapshots",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
 				"type" : "mx@s",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "stgranulator.amxd[1].maxsnap",
-				"bootpath" : "~/Documents/Max 9/Snapshots",
-				"patcherrelativepath" : "../../../Max 9/Snapshots",
+				"name" : "stgranulator.amxd_20251104.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
 				"type" : "mx@s",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "stgranulator.amxd[2].maxsnap",
-				"bootpath" : "~/Documents/Max 9/Snapshots",
-				"patcherrelativepath" : "../../../Max 9/Snapshots",
+				"name" : "stgranulator.amxd_20251104_1.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
 				"type" : "mx@s",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "stgranulator.amxd_20251024.maxsnap",
-				"bootpath" : "~/Documents/Max 9/Snapshots",
-				"patcherrelativepath" : "../../../Max 9/Snapshots",
+				"name" : "stgranulator.amxd_20251104_2.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
 				"type" : "mx@s",
 				"implicit" : 1
 			}

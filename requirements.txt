@@ -1,0 +1,5 @@
+matplotlib
+pocket-tts
+requests
+python-osc
+python-dotenv

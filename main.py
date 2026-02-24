@@ -1,14 +1,61 @@
-from pocket_tts import TTSModel
+import asyncio
+import os
+from time import sleep
+
+import httpx
+import requests
 import scipy.io.wavfile
+from dotenv import load_dotenv
+from pocket_tts import TTSModel
+from pythonosc.udp_client import SimpleUDPClient
 
-tts_model = TTSModel.load_model()
-voice_state = tts_model.get_state_for_audio_prompt(
-  "alba"  # One of the pre-made voices, see above
-  # You can also use any voice file you have locally or from Hugging Face:
-  # "./some_audio.wav"
-  # or "hf://kyutai/tts-voices/expresso/ex01-ex02_default_001_channel2_198s.wav"
-)
-audio = tts_model.generate_audio(voice_state, "Um, right now my wife and I are living in texas. In Austin texas. Yeah. So")
 
-# Audio is a 1D torch tensor containing PCM data.
-scipy.io.wavfile.write("output.wav", tts_model.sample_rate, audio.numpy())
+duration = 30 * 60  # 30 minutes
+
+if not os.path.exists('cache'): os.mkdir('cache')
+
+load_dotenv()
+
+url = os.getenv('URL')
+key = os.getenv('KEY')
+
+client = SimpleUDPClient('127.0.0.1', 3003)
+
+def lst():
+    headers = {
+        'Authorization': f'Bearer {key}'
+    }
+    json = {
+        'prefix': '',
+        'limit': 10,
+        'offset': 0,
+        'sortBy': {
+            'column': 'created_at',
+            'order': 'desc'
+        },
+        'search': ''
+    }
+    response = requests.post(f'{url}/storage/v1/object/list/samples', json=json, headers=headers)
+    files = response.json()[:-1]
+    return list(map(lambda f: f['name'], files))
+
+
+async def download(url, filename):
+    async with httpx.AsyncClient() as client:
+        async with client.stream('GET', url) as response:
+            response.raise_for_status()
+
+            with open(filename, 'wb') as f:
+                async for chunk in response.aiter_bytes():
+                    f.write(chunk)
+
+
+asyncio.run(download(f'{url}/storage/v1/object/public/samples/{lst()[0]}', 'cache/audio.mp3'))
+
+client.send_message('/stgranulator/1', os.getcwd() + '/cache/audio.mp3')
+
+# tts_model = TTSModel.load_model()
+# voice_state = tts_model.get_state_for_audio_prompt('alba')
+# audio = tts_model.generate_audio(voice_state, 'Um, right now my wife and I are living in texas. In Austin texas. Yeah. So')
+#
+# scipy.io.wavfile.write('output.wav', tts_model.sample_rate, audio.numpy())
