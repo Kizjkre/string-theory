@@ -40,24 +40,12 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-13",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 519.0, 427.0, 45.0, 22.0 ],
-					"text" : "open 2"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-12",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 297.0, 306.0, 58.0, 22.0 ],
+					"patching_rect" : [ 47.0, 178.0, 58.0, 22.0 ],
 					"text" : "loadbang"
 				}
 
@@ -69,7 +57,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 541.0, 356.0, 120.0, 22.0 ],
+					"patching_rect" : [ 291.0, 228.0, 120.0, 22.0 ],
 					"text" : "setvalue 3 Address 2"
 				}
 
@@ -81,7 +69,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 419.0, 356.0, 120.0, 22.0 ],
+					"patching_rect" : [ 169.0, 228.0, 120.0, 22.0 ],
 					"text" : "setvalue 2 Address 1"
 				}
 
@@ -93,7 +81,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 297.0, 356.0, 120.0, 22.0 ],
+					"patching_rect" : [ 47.0, 228.0, 120.0, 22.0 ],
 					"text" : "setvalue 1 Address 0"
 				}
 
@@ -105,7 +93,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 663.0, 356.0, 120.0, 22.0 ],
+					"patching_rect" : [ 413.0, 228.0, 120.0, 22.0 ],
 					"text" : "setvalue 4 Address 3"
 				}
 
@@ -116,7 +104,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 297.0, 433.0, 98.0, 22.0 ],
+					"patching_rect" : [ 47.0, 305.0, 98.0, 22.0 ],
 					"text" : "mc.poly~ voice 4"
 				}
 
@@ -175,13 +163,6 @@
 					"destination" : [ "obj-9", 0 ],
 					"order" : 3,
 					"source" : [ "obj-12", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
-					"source" : [ "obj-13", 0 ]
 				}
 
 			}
