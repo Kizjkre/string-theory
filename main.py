@@ -1,6 +1,6 @@
 import asyncio
+import json
 import os
-from time import sleep
 
 import httpx
 import requests
@@ -8,9 +8,20 @@ import scipy.io.wavfile
 from dotenv import load_dotenv
 from pocket_tts import TTSModel
 from pythonosc.udp_client import SimpleUDPClient
+import secrets
+from time import sleep, time_ns
 
+with open('data/conversations.json', 'r') as f:
+    conversations = json.load(f)
+
+with open('data/utterances.json', 'r') as f:
+    utterances = json.load(f)
+
+with open('data/affect.json', 'r') as f:
+    affect = json.load(f)
 
 duration = 30 * 60  # 30 minutes
+begin = middle = end = duration / 3
 
 if not os.path.exists('cache'): os.mkdir('cache')
 
@@ -52,10 +63,31 @@ async def download(url, filename):
 
 asyncio.run(download(f'{url}/storage/v1/object/public/samples/{lst()[0]}', 'cache/audio.mp3'))
 
-client.send_message('/stgranulator/1', os.getcwd() + '/cache/audio.mp3')
+voices = [
+    'alba',
+    'marius',
+    'javert',
+    'jean',
+    'fantine',
+    'cosette',
+    'eponine',
+    'azelma'
+]
 
-# tts_model = TTSModel.load_model()
-# voice_state = tts_model.get_state_for_audio_prompt('alba')
-# audio = tts_model.generate_audio(voice_state, 'Um, right now my wife and I are living in texas. In Austin texas. Yeah. So')
-#
-# scipy.io.wavfile.write('output.wav', tts_model.sample_rate, audio.numpy())
+start = time_ns()
+while True:
+    while time_ns() - start < begin * 1e9:
+        id = secrets.choice(conversations)
+        a = affect[id][:2]
+        u = secrets.choice(utterances[id][:len(utterances[id]) // 3])
+
+        tts_model = TTSModel.load_model()
+        voice_state = tts_model.get_state_for_audio_prompt(secrets.choice(voices))
+        audio = tts_model.generate_audio(voice_state, u)
+
+        name = f'{id}_{int(time_ns())}.wav'
+        scipy.io.wavfile.write(name, tts_model.sample_rate, audio.numpy())
+
+        client.send_message('/stgranulator/1', os.getcwd() + name)
+
+        sleep(secrets.randbelow(10) + 5)

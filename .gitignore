@@ -36,4 +36,5 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # Project Files
 candor_transcripts/
 certs/
-.venv
+.venv/
+cache/
