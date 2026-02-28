@@ -1,15 +1,17 @@
 import asyncio
 import json
 import os
+import secrets
+from time import sleep, time_ns
 
 import httpx
 import requests
 import scipy.io.wavfile
 from dotenv import load_dotenv
+from mediapipe.tasks import python
+from mediapipe.tasks.python import text
 from pocket_tts import TTSModel
 from pythonosc.udp_client import SimpleUDPClient
-import secrets
-from time import sleep, time_ns
 
 with open('data/conversations.json', 'r') as f:
     conversations = json.load(f)
@@ -23,6 +25,12 @@ with open('data/affect.json', 'r') as f:
 duration = 30 * 60  # 30 minutes
 begin = middle = end = duration / 3
 
+model_path = 'bert_classifier.tflite'
+base_options = python.BaseOptions(model_asset_path=model_path)
+options = text.TextClassifierOptions(base_options=base_options)
+
+tts_model = TTSModel.load_model()
+
 if not os.path.exists('cache'): os.mkdir('cache')
 
 load_dotenv()
@@ -30,7 +38,8 @@ load_dotenv()
 url = os.getenv('URL')
 key = os.getenv('KEY')
 
-client = SimpleUDPClient('127.0.0.1', 3003)
+client = SimpleUDPClient('127.0.0.1', 3004)
+
 
 def lst():
     headers = {
@@ -61,7 +70,7 @@ async def download(url, filename):
                     f.write(chunk)
 
 
-asyncio.run(download(f'{url}/storage/v1/object/public/samples/{lst()[0]}', 'cache/audio.mp3'))
+# asyncio.run(download(f'{url}/storage/v1/object/public/samples/{lst()[0]}', 'cache/audio.mp3'))
 
 voices = [
     'alba',
@@ -74,20 +83,29 @@ voices = [
     'azelma'
 ]
 
-start = time_ns()
-while True:
-    while time_ns() - start < begin * 1e9:
-        id = secrets.choice(conversations)
-        a = affect[id][:2]
-        u = secrets.choice(utterances[id][:len(utterances[id]) // 3])
+with python.text.TextClassifier.create_from_options(options) as classifier:
+    voice = 0
+    start = time_ns()
+    while True:
+        while time_ns() - start < begin * 1e9:
+            if secrets.randbelow(100) < 0:
+                pass
+            else:
+                id = secrets.choice(conversations)
+                a = affect[id][:2]
+                u = secrets.choice(utterances[id][:len(utterances[id]) // 3])
 
-        tts_model = TTSModel.load_model()
-        voice_state = tts_model.get_state_for_audio_prompt(secrets.choice(voices))
-        audio = tts_model.generate_audio(voice_state, u)
+                voice_state = tts_model.get_state_for_audio_prompt(secrets.choice(voices))
+                audio = tts_model.generate_audio(voice_state, u)
 
-        name = f'{id}_{int(time_ns())}.wav'
-        scipy.io.wavfile.write(name, tts_model.sample_rate, audio.numpy())
+                name = f'cache/{id}_{int(time_ns())}.wav'
+                scipy.io.wavfile.write(name, tts_model.sample_rate, audio.numpy())
 
-        client.send_message('/stgranulator/1', os.getcwd() + name)
+                sentiment = classifier.classify(u)
+                print(u)
 
-        sleep(secrets.randbelow(10) + 5)
+                client.send_message('/voice/' + str(voice), [os.getcwd() + '/' + name, a[0], a[1], sentiment.classifications[0].categories[0].score, u])
+            # voice += 1
+            # voice %= 4
+            # sleep(secrets.randbelow(10) + 35)
+            sleep(7)
