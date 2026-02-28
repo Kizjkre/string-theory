@@ -84,27 +84,28 @@ voices = [
 ]
 
 with python.text.TextClassifier.create_from_options(options) as classifier:
+    files = []
     voice = 0
     start = time_ns()
     while True:
         while time_ns() - start < begin * 1e9:
-            if secrets.randbelow(100) < 0:
-                pass
-            else:
-                id = secrets.choice(conversations)
-                a = affect[id][:2]
-                u = secrets.choice(utterances[id][:len(utterances[id]) // 3])
+            id = secrets.choice(conversations)
+            a = affect[id][:2]
+            u = secrets.choice(utterances[id][:len(utterances[id]) // 3])
 
-                voice_state = tts_model.get_state_for_audio_prompt(secrets.choice(voices))
-                audio = tts_model.generate_audio(voice_state, u)
+            voice_state = tts_model.get_state_for_audio_prompt(secrets.choice(voices))
+            audio = tts_model.generate_audio(voice_state, u)
 
-                name = f'cache/{id}_{int(time_ns())}.wav'
-                scipy.io.wavfile.write(name, tts_model.sample_rate, audio.numpy())
+            name = f'cache/{id}_{int(time_ns())}.wav'
+            scipy.io.wavfile.write(name, tts_model.sample_rate, audio.numpy())
 
-                sentiment = classifier.classify(u)
-                print(u)
+            sentiment = classifier.classify(u)
 
-                client.send_message('/voice/' + str(voice), [os.getcwd() + '/' + name, a[0], a[1], sentiment.classifications[0].categories[0].score, u])
+            files.append(name)
+            if len(files) > 10:
+                os.remove(files.pop(0))
+
+            client.send_message('/voice/' + str(voice), [os.getcwd() + '/' + name, a[0], a[1], sentiment.classifications[0].categories[0].score, u])
             # voice += 1
             # voice %= 4
             # sleep(secrets.randbelow(10) + 35)
