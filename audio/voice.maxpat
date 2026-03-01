@@ -40,12 +40,344 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-55",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 547.0, 466.0, 29.5, 22.0 ],
+					"text" : "0."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-45",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 969.473718881607056, 442.105278968811035, 29.5, 22.0 ],
+					"text" : "5."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-47",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 937.894770383834839, 442.105278968811035, 29.5, 22.0 ],
+					"text" : "0."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-48",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 937.894770383834839, 400.000014305114746, 46.0, 22.0 ],
+					"text" : "route 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-41",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 905.789506077766418, 442.105278968811035, 29.5, 22.0 ],
+					"text" : "50."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-42",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 873.684241771697998, 442.105278968811035, 29.5, 22.0 ],
+					"text" : "10."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-43",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 873.684241771697998, 400.000014305114746, 46.0, 22.0 ],
+					"text" : "route 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-22",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 1413.0, 591.0, 56.0, 22.0 ],
+					"text" : "midiflush"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-92",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 805.0, 352.0, 81.0, 22.0 ],
+					"text" : "route /section"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-89",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 836.5, 442.0, 39.0, 22.0 ],
+					"presentation_linecount" : 2,
+					"text" : "1000."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-81",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 805.0, 442.0, 32.0, 22.0 ],
+					"presentation_linecount" : 2,
+					"text" : "500."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-78",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 805.0, 400.0, 46.0, 22.0 ],
+					"text" : "route 0"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-76",
+					"maxclass" : "newobj",
+					"numinlets" : 6,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 578.5, 466.0, 103.0, 22.0 ],
+					"text" : "scale 0. 10. 0. 50."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-74",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 578.5, 433.684226036071777, 55.0, 22.0 ],
+					"text" : "r arousal"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-73",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 433.0, 293.0, 65.0, 22.0 ],
+					"text" : "FilePos $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"autosave" : 1,
+					"bgmode" : 0,
+					"border" : 0,
+					"clickthrough" : 0,
+					"id" : "obj-31",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 8,
+					"offset" : [ 0.0, 0.0 ],
+					"outlettype" : [ "signal", "signal", "", "list", "int", "", "", "" ],
+					"patching_rect" : [ 655.0, 838.0, 300.0, 100.0 ],
+					"save" : [ "#N", "vst~", "loaduniqueid", 0, "C74_VST3:/ValhallaSupermassive", ";" ],
+					"saved_attribute_attributes" : 					{
+						"valueof" : 						{
+							"parameter_invisible" : 1,
+							"parameter_longname" : "vst~",
+							"parameter_modmode" : 0,
+							"parameter_shortname" : "vst~",
+							"parameter_type" : 3
+						}
+
+					}
+,
+					"saved_object_attributes" : 					{
+						"parameter_enable" : 1,
+						"parameter_mappable" : 0
+					}
+,
+					"snapshot" : 					{
+						"filetype" : "C74Snapshot",
+						"version" : 2,
+						"minorversion" : 0,
+						"name" : "snapshotlist",
+						"origin" : "vst~",
+						"type" : "list",
+						"subtype" : "Undefined",
+						"embed" : 1,
+						"snapshot" : 						{
+							"pluginname" : "ValhallaSupermassive.vst3info",
+							"plugindisplayname" : "ValhallaSupermassive",
+							"pluginsavedname" : "C74_VST3:/ValhallaSupermassive",
+							"pluginsaveduniqueid" : 1591354953,
+							"version" : 1,
+							"isbank" : 0,
+							"isbase64" : 1,
+							"sliderorder" : [  ],
+							"slidervisibility" : [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+							"blob" : "1166.VMjLgTHA...O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9bSNv3hUMczXWEjKt3hYt3hKt.kKt3hKt3BS5gEcyQjKtfjYqXTR5AkaA4hKtfjch0TQwHlKT4hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKBgEaUMTRSgzYH4hKtXWdOMCLFElYXcUV30zUZUGMV8DZDk1R1gjPHsFMwfUcQYkVzMlUOgFUEUkQvHjSncSZOYlcoU0Y2YjVmcmQgcVSUMlcUwlXyUTLhk2ZrM1ZAIjXxUkLY8FMrU0ZIIiXugCaggCRR0Dctj1R1gjPHYWRWkUdUYzXNUjUgsFLogzTAcTXm0zQZQSP3QEMzXzXtkjPH0zZFQFNHIESz4RZHYFTTkkbEYEYSsVagkFLogjcyHUSn4hPQs1cVgEMznWX5UkUOglKosDLlMjSzn1TNQiYo0TLPMjSvP0TNECRBgDQUYTXmslLW0TSW8DZDk1R1gjPHQTUFE1YqISUmkzQhgCRBwDcXkWS3o1TNQiZ40zLtjVSv.0TNYmXogjYLQTXqUDahgCRRwDctjFRlgEUYsVTrg0YMEiV3fjPLQGVowTLpMkSznVdMoGRS0jchMkS4QUZHYFTTkEcMckV5s1UOglKoszLtjFSzn1TNQiX4wDdpkWS2QzTNcGRBgzUqYTV5clUOgFQosjcHIDRLgSLiMTUGMFNHIDSz4RZMkmKCwjctLDS24xTLkGR40zLpkVSn4hPR81XFo0PUczX3fjPLQGSC0DMpMkSzn1TNomK4wDMTkGSvPUZHYld5ElZIUEV5UkUOglKosTdXMES14xPLYmKSwjdLMDSvPzTLACRBgTS3XTVDUkQho2YV8DZtj1RwvTdMYmKCwjcHMTS4QzPNEiZS0zcHIDRMgiQYsFLogjcyHDSyvTdLkGS4wTdTMjS2g0PNEiKowDZtfFUq0zUYgWVWkkZEM0Sn4RZKYGRBgjTUEiXqkTaisVTrwDNHIDSz4RZHYFRUkUdUwlXwTkQYkmdogjcyHDSn4BZTsVSWkEdYcUVpE0TOglKosjcHIDRyslQjwDNwfUbvjFR2gjPHAyZwT0aQYzXtASZHMCRCwDZtH0XucFUY81XFokdvjFR5wzTMg1Mn8jKt3hKt3hKt3hKt3hRUACTEEzZh8VVWgkdUYTTmE0UX4BQP4hPqcjXm0jLh4BQP4xPt.0Qt3hKt3hKt3hKtQUUCUEQTg2ZrM1YQcUVDUjQicVP77RRC8Vav8lak4Fc9vyKVMEUy.Ea0cVZtMEcgQWY9.."
+						}
+,
+						"snapshotlist" : 						{
+							"current_snapshot" : 0,
+							"entries" : [ 								{
+									"filetype" : "C74Snapshot",
+									"version" : 2,
+									"minorversion" : 0,
+									"name" : "ValhallaSupermassive",
+									"origin" : "ValhallaSupermassive.vst3info",
+									"type" : "VST3",
+									"subtype" : "AudioEffect",
+									"embed" : 0,
+									"snapshot" : 									{
+										"pluginname" : "ValhallaSupermassive.vst3info",
+										"plugindisplayname" : "ValhallaSupermassive",
+										"pluginsavedname" : "C74_VST3:/ValhallaSupermassive",
+										"pluginsaveduniqueid" : 1591354953,
+										"version" : 1,
+										"isbank" : 0,
+										"isbase64" : 1,
+										"sliderorder" : [  ],
+										"slidervisibility" : [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+										"blob" : "1166.VMjLgTHA...O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9bSNv3hUMczXWEjKt3hYt3hKt.kKt3hKt3BS5gEcyQjKtfjYqXTR5AkaA4hKtfjch0TQwHlKT4hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKt3hKBgEaUMTRSgzYH4hKtXWdOMCLFElYXcUV30zUZUGMV8DZDk1R1gjPHsFMwfUcQYkVzMlUOgFUEUkQvHjSncSZOYlcoU0Y2YjVmcmQgcVSUMlcUwlXyUTLhk2ZrM1ZAIjXxUkLY8FMrU0ZIIiXugCaggCRR0Dctj1R1gjPHYWRWkUdUYzXNUjUgsFLogzTAcTXm0zQZQSP3QEMzXzXtkjPH0zZFQFNHIESz4RZHYFTTkkbEYEYSsVagkFLogjcyHUSn4hPQs1cVgEMznWX5UkUOglKosDLlMjSzn1TNQiYo0TLPMjSvP0TNECRBgDQUYTXmslLW0TSW8DZDk1R1gjPHQTUFE1YqISUmkzQhgCRBwDcXkWS3o1TNQiZ40zLtjVSv.0TNYmXogjYLQTXqUDahgCRRwDctjFRlgEUYsVTrg0YMEiV3fjPLQGVowTLpMkSznVdMoGRS0jchMkS4QUZHYFTTkEcMckV5s1UOglKoszLtjFSzn1TNQiX4wDdpkWS2QzTNcGRBgzUqYTV5clUOgFQosjcHIDRLgSLiMTUGMFNHIDSz4RZMkmKCwjctLDS24xTLkGR40zLpkVSn4hPR81XFo0PUczX3fjPLQGSC0DMpMkSzn1TNomK4wDMTkGSvPUZHYld5ElZIUEV5UkUOglKosTdXMES14xPLYmKSwjdLMDSvPzTLACRBgTS3XTVDUkQho2YV8DZtj1RwvTdMYmKCwjcHMTS4QzPNEiZS0zcHIDRMgiQYsFLogjcyHDSyvTdLkGS4wTdTMjS2g0PNEiKowDZtfFUq0zUYgWVWkkZEM0Sn4RZKYGRBgjTUEiXqkTaisVTrwDNHIDSz4RZHYFRUkUdUwlXwTkQYkmdogjcyHDSn4BZTsVSWkEdYcUVpE0TOglKosjcHIDRyslQjwDNwfUbvjFR2gjPHAyZwT0aQYzXtASZHMCRCwDZtH0XucFUY81XFokdvjFR5wzTMg1Mn8jKt3hKt3hKt3hKt3hRUACTEEzZh8VVWgkdUYTTmE0UX4BQP4hPqcjXm0jLh4BQP4xPt.0Qt3hKt3hKt3hKtQUUCUEQTg2ZrM1YQcUVDUjQicVP77RRC8Vav8lak4Fc9vyKVMEUy.Ea0cVZtMEcgQWY9.."
+									}
+,
+									"fileref" : 									{
+										"name" : "ValhallaSupermassive",
+										"filename" : "ValhallaSupermassive_20251107.maxsnap",
+										"filepath" : "~/Documents/Max 8/Snapshots",
+										"filepos" : -1,
+										"snapshotfileid" : "19b67f5ccd72cba531af3c103228a619"
+									}
+
+								}
+, 								{
+									"filetype" : "C74Snapshot",
+									"version" : 2,
+									"minorversion" : 0,
+									"name" : "ValhallaSupermassive",
+									"origin" : "ValhallaSupermassive.vst3info",
+									"type" : "VST3",
+									"subtype" : "AudioEffect",
+									"embed" : 0,
+									"fileref" : 									{
+										"name" : "ValhallaSupermassive",
+										"filename" : "ValhallaSupermassive_20251107_1.maxsnap",
+										"filepath" : "~/Documents/Max 8/Snapshots",
+										"filepos" : -1,
+										"snapshotfileid" : "32a0e4e49486c8481feccbdf62e278fc"
+									}
+
+								}
+, 								{
+									"filetype" : "C74Snapshot",
+									"version" : 2,
+									"minorversion" : 0,
+									"name" : "ValhallaSupermassive",
+									"origin" : "ValhallaSupermassive.vst3info",
+									"type" : "VST3",
+									"subtype" : "AudioEffect",
+									"embed" : 0,
+									"fileref" : 									{
+										"name" : "ValhallaSupermassive",
+										"filename" : "ValhallaSupermassive_20251107_2.maxsnap",
+										"filepath" : "~/Documents/Max 8/Snapshots",
+										"filepos" : -1,
+										"snapshotfileid" : "2fa62e173fcfa14671d9869a87a6456a"
+									}
+
+								}
+, 								{
+									"filetype" : "C74Snapshot",
+									"version" : 2,
+									"minorversion" : 0,
+									"name" : "ValhallaSupermassive",
+									"origin" : "ValhallaSupermassive.vst3info",
+									"type" : "VST3",
+									"subtype" : "AudioEffect",
+									"embed" : 0,
+									"fileref" : 									{
+										"name" : "ValhallaSupermassive",
+										"filename" : "ValhallaSupermassive_20251107_3.maxsnap",
+										"filepath" : "~/Documents/Max 8/Snapshots",
+										"filepos" : -1,
+										"snapshotfileid" : "10661b58cf0471e20722789fe2e9acb8"
+									}
+
+								}
+ ]
+						}
+
+					}
+,
+					"text" : "vst~ C74_VST3:/ValhallaSupermassive",
+					"varname" : "vst~",
+					"viewvisibility" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-52",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 926.0, 865.0, 41.0, 22.0 ],
+					"patching_rect" : [ 1391.0, 877.0, 41.0, 22.0 ],
 					"text" : "del 10"
 				}
 
@@ -58,7 +390,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 926.0, 832.0, 24.0, 24.0 ]
+					"patching_rect" : [ 1391.0, 844.0, 24.0, 24.0 ]
 				}
 
 			}
@@ -69,7 +401,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 926.0, 896.0, 29.5, 22.0 ],
+					"patching_rect" : [ 1391.0, 908.0, 29.5, 22.0 ],
 					"text" : "1"
 				}
 
@@ -81,7 +413,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 872.0, 896.0, 52.0, 22.0 ],
+					"patching_rect" : [ 1337.0, 908.0, 52.0, 22.0 ],
 					"text" : "open $1"
 				}
 
@@ -93,7 +425,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 872.0, 860.0, 31.0, 22.0 ],
+					"patching_rect" : [ 1337.0, 872.0, 31.0, 22.0 ],
 					"text" : "r file"
 				}
 
@@ -105,7 +437,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "bang" ],
-					"patching_rect" : [ 872.0, 938.0, 47.0, 22.0 ],
+					"patching_rect" : [ 1337.0, 950.0, 47.0, 22.0 ],
 					"text" : "sfplay~"
 				}
 
@@ -118,7 +450,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1309.0, 393.406612634658813, 103.0, 22.0 ],
-					"text" : "scale 0. 10. 2. 0.1"
+					"text" : "scale 0. 10. 10. 2."
 				}
 
 			}
@@ -500,8 +832,8 @@
 					"numinlets" : 6,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 502.0, 513.0, 114.0, 22.0 ],
-					"text" : "scale~ -1. 1. 0. 500."
+					"patching_rect" : [ 502.0, 513.0, 108.0, 22.0 ],
+					"text" : "scale~ -1. 1. 0. 10."
 				}
 
 			}
@@ -514,16 +846,6 @@
 					"outlettype" : [ "signal" ],
 					"patching_rect" : [ 502.0, 466.0, 43.0, 22.0 ],
 					"text" : "cycle~"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-102",
-					"maxclass" : "ezdac~",
-					"numinlets" : 2,
-					"numoutlets" : 0,
-					"patching_rect" : [ 702.0, 966.0, 45.0, 45.0 ]
 				}
 
 			}
@@ -594,18 +916,6 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 363.0, 466.0, 99.0, 22.0 ],
 					"text" : "PosLFOCycle $1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-63",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 856.0, 72.0, 75.0, 22.0 ],
-					"text" : "FilePos 33.3"
 				}
 
 			}
@@ -710,8 +1020,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 118.0, 240.0, 262.0, 20.0 ],
-					"text" : "Filename, Affect, Arousal, Sentiment, Utterance"
+					"patching_rect" : [ 118.0, 240.0, 371.0, 20.0 ],
+					"text" : "Filename, Affect, Arousal, Sentiment, Utterance, RMS Max"
 				}
 
 			}
@@ -779,10 +1089,10 @@
 					"id" : "obj-16",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 5,
-					"outlettype" : [ "", "float", "float", "float", "" ],
-					"patching_rect" : [ 111.0, 256.0, 86.0, 22.0 ],
-					"text" : "unpack s f f f s"
+					"numoutlets" : 6,
+					"outlettype" : [ "", "float", "float", "float", "", "float" ],
+					"patching_rect" : [ 111.0, 256.0, 93.0, 22.0 ],
+					"text" : "unpack s f f f s f"
 				}
 
 			}
@@ -1006,7 +1316,7 @@
 									"FMAmt<Key" : 0.0,
 									"FMFreq" : 8141.889447236180786,
 									"FMOn" : 0.0,
-									"FilePos" : 33.299999999999997,
+									"FilePos" : 43.976608276367188,
 									"FilePos<Key" : 0.0,
 									"FilePos<Rnd" : 0.0,
 									"FilterEnvAttack" : 1.0,
@@ -1019,14 +1329,14 @@
 									"Grain<Key" : 100.0,
 									"Grain<LFO" : 0.0,
 									"Grain<Random" : 0.0,
-									"GrainSize" : 143.012346050091963,
+									"GrainSize" : 135.264184323514542,
 									"GrainSpread" : 0.0,
 									"Hold" : 0.0,
 									"LFOSlow" : 0.0,
 									"Port" : 3003.0,
-									"Pos<LFO" : 100.0,
+									"Pos<LFO" : 87.292611371180783,
 									"PosLFO<Key" : 100.0,
-									"PosLFOCycle" : 74384.060035269663786,
+									"PosLFOCycle" : 69321.904073709898512,
 									"PosLFOOn" : 0.0,
 									"PosLFOPhase" : 0.0,
 									"PosLFOTrigger" : 0.0,
@@ -1039,7 +1349,7 @@
 									"ScanTime" : 2962.311422225789556,
 									"Spike" : 0.0,
 									"Spike[1]" : 0.0,
-									"Spray" : 6141.732283464589273,
+									"Spray" : 10495.097358955688833,
 									"SprayOn" : 1.0,
 									"SpraySign" : 0.0,
 									"SpraySlope" : 1.0,
@@ -1050,7 +1360,7 @@
 									"TuneFine" : 0.0,
 									"View" : 0.0,
 									"Vocies" : 7.0,
-									"Volume" : -36.236220472440905,
+									"Volume" : -29.62204724409445,
 									"Volume<Vel" : 0.0,
 									"VolumeEnvAttack" : 1.0,
 									"VolumeEnvDecay" : 63590.763751691942161,
@@ -1115,7 +1425,7 @@
 												"FMAmt<Key" : 0.0,
 												"FMFreq" : 8141.889447236180786,
 												"FMOn" : 0.0,
-												"FilePos" : 33.299999999999997,
+												"FilePos" : 43.976608276367188,
 												"FilePos<Key" : 0.0,
 												"FilePos<Rnd" : 0.0,
 												"FilterEnvAttack" : 1.0,
@@ -1128,14 +1438,14 @@
 												"Grain<Key" : 100.0,
 												"Grain<LFO" : 0.0,
 												"Grain<Random" : 0.0,
-												"GrainSize" : 143.012346050091963,
+												"GrainSize" : 135.264184323514542,
 												"GrainSpread" : 0.0,
 												"Hold" : 0.0,
 												"LFOSlow" : 0.0,
 												"Port" : 3003.0,
-												"Pos<LFO" : 100.0,
+												"Pos<LFO" : 87.292611371180783,
 												"PosLFO<Key" : 100.0,
-												"PosLFOCycle" : 74384.060035269663786,
+												"PosLFOCycle" : 69321.904073709898512,
 												"PosLFOOn" : 0.0,
 												"PosLFOPhase" : 0.0,
 												"PosLFOTrigger" : 0.0,
@@ -1148,7 +1458,7 @@
 												"ScanTime" : 2962.311422225789556,
 												"Spike" : 0.0,
 												"Spike[1]" : 0.0,
-												"Spray" : 6141.732283464589273,
+												"Spray" : 10495.097358955688833,
 												"SprayOn" : 1.0,
 												"SpraySign" : 0.0,
 												"SpraySlope" : 1.0,
@@ -1159,7 +1469,7 @@
 												"TuneFine" : 0.0,
 												"View" : 0.0,
 												"Vocies" : 7.0,
-												"Volume" : -36.236220472440905,
+												"Volume" : -29.62204724409445,
 												"Volume<Vel" : 0.0,
 												"VolumeEnvAttack" : 1.0,
 												"VolumeEnvDecay" : 63590.763751691942161,
@@ -1308,6 +1618,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-92", 0 ],
+					"source" : [ "obj-11", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-104", 0 ],
 					"order" : 0,
 					"source" : [ "obj-113", 0 ]
@@ -1324,7 +1641,16 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"order" : 1,
+					"source" : [ "obj-114", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-91", 0 ],
+					"order" : 0,
 					"source" : [ "obj-114", 0 ]
 				}
 
@@ -1460,6 +1786,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-73", 0 ],
+					"source" : [ "obj-16", 5 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-21", 0 ],
 					"source" : [ "obj-17", 0 ]
 				}
@@ -1509,6 +1842,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-3", 2 ],
+					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-59", 0 ],
 					"source" : [ "obj-23", 0 ]
 				}
@@ -1551,16 +1891,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-102", 1 ],
-					"order" : 0,
-					"source" : [ "obj-3", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-2", 1 ],
-					"order" : 1,
+					"destination" : [ "obj-31", 0 ],
 					"source" : [ "obj-3", 0 ]
 				}
 
@@ -1569,6 +1900,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-29", 0 ],
 					"source" : [ "obj-30", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 1 ],
+					"source" : [ "obj-31", 0 ]
 				}
 
 			}
@@ -1592,6 +1930,13 @@
 					"destination" : [ "obj-51", 0 ],
 					"order" : 0,
 					"source" : [ "obj-33", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"source" : [ "obj-35", 0 ]
 				}
 
 			}
@@ -1632,6 +1977,43 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-76", 4 ],
+					"source" : [ "obj-41", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-76", 3 ],
+					"source" : [ "obj-42", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-41", 0 ],
+					"order" : 0,
+					"source" : [ "obj-43", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-42", 0 ],
+					"order" : 1,
+					"source" : [ "obj-43", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-48", 0 ],
+					"source" : [ "obj-43", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-20", 0 ],
 					"source" : [ "obj-44", 0 ]
 				}
@@ -1639,8 +2021,38 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-76", 4 ],
+					"source" : [ "obj-45", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-65", 0 ],
 					"source" : [ "obj-46", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-76", 3 ],
+					"source" : [ "obj-47", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-45", 0 ],
+					"order" : 0,
+					"source" : [ "obj-48", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-47", 0 ],
+					"order" : 1,
+					"source" : [ "obj-48", 0 ]
 				}
 
 			}
@@ -1674,7 +2086,14 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-3", 2 ],
+					"destination" : [ "obj-27", 3 ],
+					"source" : [ "obj-55", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
 					"source" : [ "obj-56", 0 ]
 				}
 
@@ -1706,13 +2125,6 @@
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
 					"source" : [ "obj-6", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-3", 0 ],
-					"source" : [ "obj-63", 0 ]
 				}
 
 			}
@@ -1756,15 +2168,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
-					"order" : 1,
-					"source" : [ "obj-7", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-63", 0 ],
-					"order" : 0,
 					"source" : [ "obj-7", 0 ]
 				}
 
@@ -1803,6 +2206,29 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"source" : [ "obj-73", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-55", 0 ],
+					"order" : 1,
+					"source" : [ "obj-74", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-76", 0 ],
+					"order" : 0,
+					"source" : [ "obj-74", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-77", 0 ],
 					"source" : [ "obj-75", 0 ]
 				}
@@ -1810,8 +2236,38 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-27", 4 ],
+					"source" : [ "obj-76", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-82", 0 ],
 					"source" : [ "obj-77", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-43", 0 ],
+					"source" : [ "obj-78", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-81", 0 ],
+					"order" : 1,
+					"source" : [ "obj-78", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-89", 0 ],
+					"order" : 0,
+					"source" : [ "obj-78", 0 ]
 				}
 
 			}
@@ -1826,6 +2282,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-76", 3 ],
+					"source" : [ "obj-81", 0 ]
 				}
 
 			}
@@ -1891,6 +2354,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-76", 4 ],
+					"source" : [ "obj-89", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
 					"source" : [ "obj-9", 0 ]
 				}
@@ -1909,6 +2379,13 @@
 					"destination" : [ "obj-88", 0 ],
 					"order" : 1,
 					"source" : [ "obj-91", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-78", 0 ],
+					"source" : [ "obj-92", 0 ]
 				}
 
 			}
@@ -1952,6 +2429,7 @@
  ],
 		"parameters" : 		{
 			"obj-3" : [ "amxd~[4]", "amxd~", 0 ],
+			"obj-31" : [ "vst~", "vst~", 0 ],
 			"parameterbanks" : 			{
 				"0" : 				{
 					"index" : 0,
@@ -1965,6 +2443,34 @@
 		}
 ,
 		"dependency_cache" : [ 			{
+				"name" : "ValhallaSupermassive_20251107.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "ValhallaSupermassive_20251107_1.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "ValhallaSupermassive_20251107_2.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "ValhallaSupermassive_20251107_3.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
 				"name" : "minsecmil.js",
 				"type" : "TEXT",
 				"implicit" : 1

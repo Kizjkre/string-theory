@@ -39,6 +39,16 @@
   }
 }
 
+@keyframes spin {
+  from {
+    rotate: 0deg;
+  }
+
+  to {
+    rotate: 360deg;
+  }
+}
+
 body, html {
   height: 100dvh;
   margin: 0;
@@ -60,6 +70,16 @@ h1 {
   font-size: 64pt;
 }
 
+.question {
+  width: 80%;
+}
+
+.response {
+  align-self: end;
+  text-align: end;
+  width: 80%;
+}
+
 /* REF: https://css-tricks.com/books/greatest-css-tricks/pin-scrolling-to-bottom/ */
 #anchor {
   height: 1px;
@@ -74,15 +94,16 @@ h1 {
   position: absolute;
   top: 0;
   width: 100dvw;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  z-index: 9999;
+  z-index: 9;
   font-family: 'Micro5', monospace;
   padding: 2dvh 5dvw;
   box-sizing: border-box;
+  transition: opacity 300ms ease;
 }
 
 #consent h3 {
@@ -107,7 +128,6 @@ h1 {
   font-size: 10rem;
   font-family: 'Micro5';
   border-radius: 999px;
-  transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
 }
 
 #fab {
@@ -115,6 +135,39 @@ h1 {
   display: flex;
   grid-area: fab;
   justify-content: center;
+}
+
+#history {
+  display: contents;
+}
+
+#loading {
+  align-items: center;
+  background: color-mix(in srgb, #01260A 90%, transparent 10%);
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  transition: opacity 300ms ease;
+  top: 0;
+  width: 100dvw;
+  z-index: 10;
+
+  & > h1 {
+    font-size: 10rem;
+  }
+
+  & > svg {
+    animation: spin 1s linear infinite;
+    aspect-ratio: 1 / 1;
+    color: #44F24F;
+    max-height: 20dvh;
+    max-width: 20dvw;
+    min-height: 10dvh;
+    min-width: 10dvw;
+  }
 }
 
 #main {
@@ -125,10 +178,6 @@ h1 {
   padding: 2dvh 5dvw;
   overflow: scroll;
   overflow-anchor: none;
-}
-
-#question {
-  width: 80%;
 }
 
 #record {
@@ -179,8 +228,4 @@ h1 {
   }
 }
 
-#response {
-  align-self: end;
-  text-align: end;
-  width: 80%;
-}
+

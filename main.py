@@ -5,6 +5,8 @@ import secrets
 from time import sleep, time_ns
 
 import httpx
+import librosa
+import numpy as np
 import requests
 import scipy.io.wavfile
 from dotenv import load_dotenv
@@ -87,26 +89,35 @@ with python.text.TextClassifier.create_from_options(options) as classifier:
     files = []
     voice = 0
     start = time_ns()
-    while True:
-        while time_ns() - start < begin * 1e9:
-            id = secrets.choice(conversations)
-            a = affect[id][:2]
-            u = secrets.choice(utterances[id][:len(utterances[id]) // 3])
 
-            voice_state = tts_model.get_state_for_audio_prompt(secrets.choice(voices))
-            audio = tts_model.generate_audio(voice_state, u)
+    client.send_message('/section', 0)
+    while time_ns() - start < begin * 1e9:
+        id = secrets.choice(conversations)
+        a = affect[id][:2]
+        u = secrets.choice(utterances[id][:len(utterances[id]) // 3])
 
-            name = f'cache/{id}_{int(time_ns())}.wav'
-            scipy.io.wavfile.write(name, tts_model.sample_rate, audio.numpy())
+        voice_state = tts_model.get_state_for_audio_prompt(secrets.choice(voices))
+        audio = tts_model.generate_audio(voice_state, u)
+        samples = audio.numpy()
 
-            sentiment = classifier.classify(u)
+        rms = librosa.feature.rms(y=samples)
+        rmsmax = np.argmax(rms[0]) * 512 / len(samples) * 100
 
-            files.append(name)
-            if len(files) > 10:
-                os.remove(files.pop(0))
+        name = f'cache/{id}_{int(time_ns())}.wav'
+        scipy.io.wavfile.write(name, tts_model.sample_rate, samples)
 
-            client.send_message('/voice/' + str(voice), [os.getcwd() + '/' + name, a[0], a[1], sentiment.classifications[0].categories[0].score, u])
-            # voice += 1
-            # voice %= 4
-            # sleep(secrets.randbelow(10) + 35)
-            sleep(7)
+        sentiment = classifier.classify(u)
+
+        files.append(name)
+        if len(files) > 10:
+            os.remove(files.pop(0))
+
+        client.send_message('/voice/' + str(voice), [os.getcwd() + '/' + name, a[0], a[1], sentiment.classifications[0].categories[0].score, u, rmsmax])
+        voice += 1
+        voice %= 4
+        sleep(secrets.randbelow(10) + 35)
+
+    start = time_ns()
+    client.send_message('/section', 1)
+    while time_ns() - start < middle * 1e9:
+        sleep(1)

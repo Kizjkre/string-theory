@@ -4,3 +4,4 @@ requests
 python-osc
 python-dotenv
 mediapipe
+librosa
