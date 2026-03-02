@@ -1,5 +1,4 @@
 import vmsg from 'https://unpkg.com/vmsg@0.4.0/vmsg.js';
-import 'https://unpkg.com/ml5@latest/dist/ml5.min.js';
 
 let transcript = '';
 let id = '';
@@ -42,7 +41,7 @@ const converse = async () => {
   const text = await transcriptFile.text();
   const info = text.split('\n');
   const prompt = info[0];
-  history = JSON.parse(info[2]);
+  history = JSON.parse(info[1]);
 
   let isResponse = history.length % 2 === 1;
 
@@ -83,23 +82,21 @@ if (localStorage.getItem('consentGiven') === 'true') {
 consentButton.addEventListener('click', hide);
 consentButton.addEventListener('touchend', hide);
 
-const sentiment = await ml5.sentiment('MovieReviews');
-
 const recorder = new vmsg.Recorder({ wasmURL: 'https://unpkg.com/vmsg@0.4.0/vmsg.wasm' });
 await recorder.initAudio();
 await recorder.initWorker();
-
-const loading = document.getElementById('loading');
-loading.style.opacity = '0';
-loading.addEventListener('transitionend', () => {
-  loading.style.display = 'none';
-});
 
 const sr = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new sr();
 recognition.continuous = true;
 recognition.lang = 'en-US';
 recognition.interimResults = true;
+
+const loading = document.getElementById('loading');
+loading.style.opacity = '0';
+loading.addEventListener('transitionend', () => {
+  loading.style.display = 'none';
+});
 
 const start = async () => {
   recognition.start();
@@ -109,25 +106,24 @@ const start = async () => {
 const end = async () => {
   recognition.stop();
   const blob = await recorder.stopRecording();
-  // const name = `${ id }-${ first ? '1' : .length }`;
-  const name = `${ id }-${ count }`;
-
-  const score = await new Promise(res => sentiment.predict(transcript, () => res()));
-
-  await sb.storage
-    .from('samples')
-    .upload(name + '.mp3', blob);
+  const name = `${ id }-${ first ? '1' : history.length + 1 }`;
 
   if (first) {
     await sb.storage
+      .from('samples')
+      .upload(id + '_' + name + '.mp3', blob);
+    await sb.storage
       .from('transcripts')
-      .upload(id + '/' + name + '.txt', transcript + '\n' + score + '\n[]');
+      .upload(id + '/' + name + '.txt', transcript + '\n[]');
     first = false;
   } else {
     history.push(name);
     await sb.storage
+      .from('samples')
+      .upload(folder + '_' + name + '.mp3', blob);
+    await sb.storage
       .from('transcripts')
-      .upload(folder +'/' + name + '.txt', transcript + '\n' + score + '\n' + JSON.stringify(history));
+      .upload(folder + '/' + name + '.txt', transcript + '\n' + JSON.stringify(history));
 
     record.disabled = true;
 

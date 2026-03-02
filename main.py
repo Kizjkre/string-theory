@@ -25,7 +25,7 @@ with open('data/affect.json', 'r') as f:
     affect = json.load(f)
 
 duration = 30 * 60  # 30 minutes
-begin = middle = end = duration / 3
+history = []
 
 model_path = 'bert_classifier.tflite'
 base_options = python.BaseOptions(model_asset_path=model_path)
@@ -33,7 +33,9 @@ options = text.TextClassifierOptions(base_options=base_options)
 
 tts_model = TTSModel.load_model()
 
-if not os.path.exists('cache'): os.mkdir('cache')
+if not os.path.exists('cache'):
+    os.mkdir('cache')
+    os.mkdir('cache/downloaded')
 
 load_dotenv()
 
@@ -42,37 +44,38 @@ key = os.getenv('KEY')
 
 client = SimpleUDPClient('127.0.0.1', 3004)
 
+headers = {
+    'Authorization': f'Bearer {key}'
+}
+
 
 def lst():
-    headers = {
-        'Authorization': f'Bearer {key}'
-    }
     json = {
         'prefix': '',
-        'limit': 10,
-        'offset': 0,
         'sortBy': {
             'column': 'created_at',
             'order': 'desc'
         },
         'search': ''
     }
+    # REF: https://github.com/orgs/supabase/discussions/33809#discussioncomment-12300951
     response = requests.post(f'{url}/storage/v1/object/list/samples', json=json, headers=headers)
-    files = response.json()[:-1]
-    return list(map(lambda f: f['name'], files))
+    return list(map(lambda f: f['name'], response.json()[:-1]))
 
 
-async def download(url, filename):
-    async with httpx.AsyncClient() as client:
-        async with client.stream('GET', url) as response:
-            response.raise_for_status()
+async def download(file, filename):
+    async def dl():
+        async with httpx.AsyncClient() as client:
+            async with client.stream('GET', f'{url}/storage/v1/object/public/samples/{file}') as response:
+                response.raise_for_status()
 
-            with open(filename, 'wb') as f:
-                async for chunk in response.aiter_bytes():
-                    f.write(chunk)
+                with open(filename, 'wb') as f:
+                    async for chunk in response.aiter_bytes():
+                        f.write(chunk)
 
+    await dl()
+    requests.delete(f'{url}/storage/v1/object/samples/{file}', headers=headers)
 
-# asyncio.run(download(f'{url}/storage/v1/object/public/samples/{lst()[0]}', 'cache/audio.mp3'))
 
 voices = [
     'alba',
@@ -86,38 +89,73 @@ voices = [
 ]
 
 with python.text.TextClassifier.create_from_options(options) as classifier:
-    files = []
-    voice = 0
-    start = time_ns()
+    async def bg():
+        files = []
+        voice = 0
 
-    client.send_message('/section', 0)
-    while time_ns() - start < begin * 1e9:
-        id = secrets.choice(conversations)
-        a = affect[id][:2]
-        u = secrets.choice(utterances[id][:len(utterances[id]) // 3])
+        for i in range(3):
+            start = time_ns()
+            client.send_message('/section', i)
+            while time_ns() - start < duration / 3 * 1e9:
+                id = secrets.choice(conversations)
+                a = affect[id][:2]
+                u = secrets.choice(utterances[id][:len(utterances[id]) // 3])
 
-        voice_state = tts_model.get_state_for_audio_prompt(secrets.choice(voices))
-        audio = tts_model.generate_audio(voice_state, u)
-        samples = audio.numpy()
+                voice_state = tts_model.get_state_for_audio_prompt(secrets.choice(voices))
+                audio = tts_model.generate_audio(voice_state, u)
+                samples = audio.numpy()
 
-        rms = librosa.feature.rms(y=samples)
-        rmsmax = np.argmax(rms[0]) * 512 / len(samples) * 100
+                rms = librosa.feature.rms(y=samples)
+                rmsmax = np.argmax(rms[0]) * 512 / len(samples) * 100
 
-        name = f'cache/{id}_{int(time_ns())}.wav'
-        scipy.io.wavfile.write(name, tts_model.sample_rate, samples)
+                name = f'cache/{id}_{int(time_ns())}.wav'
+                scipy.io.wavfile.write(name, tts_model.sample_rate, samples)
 
-        sentiment = classifier.classify(u)
+                sentiment = classifier.classify(u)
 
-        files.append(name)
-        if len(files) > 10:
-            os.remove(files.pop(0))
+                files.append(name)
+                if len(files) > 10:
+                    os.remove(files.pop(0))
 
-        client.send_message('/voice/' + str(voice), [os.getcwd() + '/' + name, a[0], a[1], sentiment.classifications[0].categories[0].score, u, rmsmax])
-        voice += 1
-        voice %= 4
-        sleep(secrets.randbelow(10) + 35)
+                client.send_message('/voice/' + str(voice),
+                                    [os.getcwd() + '/' + name, a[0], a[1],
+                                     sentiment.classifications[0].categories[0].score,
+                                     u, rmsmax])
+                voice += 1
+                voice %= 4
+                sleep(secrets.randbelow(10) + 35)
 
-    start = time_ns()
-    client.send_message('/section', 1)
-    while time_ns() - start < middle * 1e9:
-        sleep(1)
+
+    async def fgdl():
+        while True:
+            files = lst()
+            for f in files:
+                asyncio.run(download(f, f'cache/downloaded/{f}'))
+            sleep(secrets.randbelow(10) + 35)
+
+
+    async def fg():
+        prev = None
+        voice = 0
+        while True:
+            files = sorted(os.listdir('cache/downloaded'), key=lambda f: os.path.getctime(os.path.join('cache/downloaded', f)), reverse=True)
+            file = secrets.choice(files)
+            transcript = file.replace('_', '/')
+            response = requests.get(f'{url}/storage/v1/object/public/transcripts/{transcript}.txt')
+
+            sentiment = classifier.classify(response.text)
+            client.send_message('/downloaded/' + voice, [os.getcwd() + f'/cache/downloaded/{file}', sentiment.classifications[0].categories[0].score, response.text])
+
+            if prev is not None:
+                os.remove(f'cache/downloaded/{prev}')
+            prev = file
+
+            voice += 1
+            voice %= 4
+            sleep(secrets.randbelow(10) + 35)
+
+
+
+    asyncio.run(bg())
+    asyncio.run(fgdl())
+    asyncio.run(fg())
