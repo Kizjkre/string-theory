@@ -4,13 +4,15 @@ let transcript = '';
 let id = '';
 let count = 0;
 let first = true;
-let history;
+let history = [];
 let folder;
+let prev;
 
 const supabaseUrl = 'https://tqedlevqairojifyhnio.supabase.co';
 const supabaseKey = 'sb_publishable_jZV7qmRKCILC1ucln0cCpw_pgN6ZFDK';
 const sb = supabase.createClient(supabaseUrl, supabaseKey);
 
+const main = document.getElementById('main');
 const record = document.getElementById('record');
 const question = document.getElementById('question');
 const response = document.getElementById('response');
@@ -19,11 +21,24 @@ const h = document.getElementById('history');
 const converse = async () => {
   question.innerText = '[system message]: loading conversation...';
 
-  const { data } = await sb.storage
+  let data = null;
+  let time = 1000;
+
+  data = (await sb.storage
     .from('transcripts')
     .list('', {
       sortBy: { column: 'updated_at', order: 'asc' }
-    });
+    })).data;
+
+  while (!data || data.length === 0) {
+    await new Promise(resolve => setTimeout(resolve, time));
+    time *= 1.5;
+    data = (await sb.storage
+      .from('transcripts')
+      .list('', {
+        sortBy: { column: 'updated_at', order: 'asc' }
+      })).data;
+  }
 
   const index = Math.floor(Math.random() * data.length);
   folder = data[index].name;
@@ -42,6 +57,7 @@ const converse = async () => {
   const info = text.split('\n');
   const prompt = info[0];
   history = JSON.parse(info[1]);
+  prev = file.name;
 
   let isResponse = history.length % 2 === 1;
 
@@ -49,11 +65,16 @@ const converse = async () => {
     const h1 = document.createElement('h1');
     h1.classList.add(isResponse ? 'response' : 'question');
     h.appendChild(h1);
-    fetch(`${ supabaseUrl }/storage/v1/object/public/transcripts/${ data[index].name }/${ item }.txt`)
+    fetch(`${ supabaseUrl }/storage/v1/object/public/transcripts/${ data[index].name }/${ item }`)
       .then(res => res.text())
-      .then(text => h1.innerText = text.split('\n')[0]);
+      .then(text => {
+        h1.innerText = text.split('\n')[0];
+        main.scroll(0, Number.MAX_SAFE_INTEGER);
+      });
     isResponse = !isResponse;
   });
+
+  main.scroll(0, Number.MAX_SAFE_INTEGER);
 
   question.innerText = prompt;
   response.innerText = '[system message]: waiting for input, press and hold button to record...';
@@ -71,13 +92,14 @@ const hide = () => {
 if (localStorage.getItem('consentGiven') === 'true') {
   count = +localStorage.getItem('count');
   id = localStorage.getItem('uuid');
-  first = false;
-  converse();
+  first = JSON.parse(localStorage.getItem('first'));
+  if (!first) converse();
 } else {
   consent.style.display = 'flex';
   id = crypto.randomUUID();
   localStorage.setItem('uuid', id);
   localStorage.setItem('count', count);
+  localStorage.setItem('first', first);
 }
 consentButton.addEventListener('click', hide);
 consentButton.addEventListener('touchend', hide);
@@ -99,6 +121,8 @@ loading.addEventListener('transitionend', () => {
 });
 
 const start = async () => {
+  await recorder.initAudio();
+  await recorder.initWorker();
   recognition.start();
   recorder.startRecording();
 };
@@ -106,7 +130,7 @@ const start = async () => {
 const end = async () => {
   recognition.stop();
   const blob = await recorder.stopRecording();
-  const name = `${ id }-${ first ? '1' : history.length + 1 }`;
+  const name = `${ id }_${ first ? '0' : history.length + 1 }`;
 
   if (first) {
     await sb.storage
@@ -117,20 +141,23 @@ const end = async () => {
       .upload(id + '/' + name + '.txt', transcript + '\n[]');
     first = false;
   } else {
-    history.push(name);
+    history.push(prev);
     await sb.storage
       .from('samples')
       .upload(folder + '_' + name + '.mp3', blob);
     await sb.storage
       .from('transcripts')
       .upload(folder + '/' + name + '.txt', transcript + '\n' + JSON.stringify(history));
-
-    record.disabled = true;
-
-    await converse();
-
-    record.disabled = false;
   }
+
+  first = false;
+  localStorage.setItem('first', first);
+
+  record.disabled = true;
+
+  await converse();
+
+  record.disabled = false;
 };
 
 record.addEventListener('mousedown', start);
