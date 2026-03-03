@@ -28,7 +28,7 @@ with open('data/affect.json', 'r') as f:
 duration = 30 * 60  # 30 minutes
 history = []
 
-model_path = 'bert_classifier.tflite'
+model_path = 'average_word_classifier.tflite'
 base_options = python.BaseOptions(model_asset_path=model_path)
 options = text.TextClassifierOptions(base_options=base_options)
 
@@ -100,8 +100,15 @@ with python.text.TextClassifier.create_from_options(options) as classifier:
                 client.send_message('/section', i)
                 while time_ns() - start < duration / 3 * 1e9:
                     id = secrets.choice(conversations)
-                    a = affect[id][:2]
-                    u = secrets.choice(utterances[id][:len(utterances[id]) // 3])
+                    if i == 0:
+                        a = affect[id][:2]
+                        u = secrets.choice(utterances[id][:len(utterances[id]) // 3])
+                    elif i == 1:
+                        a = affect[id][2:4]
+                        u = secrets.choice(utterances[id][len(utterances[id]) // 3:len(utterances[id]) * 2 // 3])
+                    else:
+                        a = affect[id][4:]
+                        u = secrets.choice(utterances[id][len(utterances[id]) * 2 // 3:])
 
                     voice_state = tts_model.get_state_for_audio_prompt(secrets.choice(voices))
                     audio = tts_model.generate_audio(voice_state, u)
@@ -140,6 +147,9 @@ with python.text.TextClassifier.create_from_options(options) as classifier:
         voice = 0
         while True:
             files = sorted(os.listdir('cache/downloaded'), key=lambda f: os.path.getctime(os.path.join('cache/downloaded', f)), reverse=True)
+            if len(files) == 0:
+                sleep(60)
+                continue
             file = secrets.choice(files)
             transcript = file.replace('_', '/').replace('.mp3', '')
             response = requests.get(f'{url}/storage/v1/object/public/transcripts/{transcript}.txt')
