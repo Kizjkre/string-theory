@@ -40,6 +40,17 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-2",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 134.0, 164.0, 135.0, 22.0 ],
+					"text" : "mc.poly~ downloaded 4"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-26",
 					"maxclass" : "button",
 					"numinlets" : 1,
@@ -182,7 +193,8 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
+					"destination" : [ "obj-2", 0 ],
+					"order" : 0,
 					"source" : [ "obj-10", 0 ]
 				}
 
@@ -190,6 +202,23 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
+					"order" : 1,
+					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"order" : 0,
+					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"order" : 1,
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -260,7 +289,8 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
+					"destination" : [ "obj-2", 0 ],
+					"order" : 0,
 					"source" : [ "obj-21", 0 ]
 				}
 
@@ -268,6 +298,15 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
+					"order" : 1,
+					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"order" : 0,
 					"source" : [ "obj-22", 0 ]
 				}
 
@@ -275,6 +314,15 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
+					"order" : 1,
+					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"order" : 0,
 					"source" : [ "obj-23", 0 ]
 				}
 
@@ -282,6 +330,23 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
+					"order" : 1,
+					"source" : [ "obj-23", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"order" : 0,
+					"source" : [ "obj-24", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"order" : 1,
 					"source" : [ "obj-24", 0 ]
 				}
 
@@ -295,7 +360,8 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
+					"destination" : [ "obj-2", 0 ],
+					"order" : 0,
 					"source" : [ "obj-6", 0 ]
 				}
 
@@ -303,16 +369,81 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
+					"order" : 1,
+					"source" : [ "obj-6", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"order" : 0,
+					"source" : [ "obj-9", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"order" : 1,
 					"source" : [ "obj-9", 0 ]
 				}
 
 			}
  ],
 		"parameters" : 		{
+			"obj-2.1::obj-21" : [ "vst~[35]", "vst~", 0 ],
+			"obj-2.1::obj-29" : [ "live.gain~[11]", "live.gain~", 0 ],
+			"obj-2.1::obj-31" : [ "vst~[34]", "vst~[1]", 0 ],
+			"obj-2.1::obj-33" : [ "vst~[32]", "vst~[2]", 0 ],
+			"obj-2.1::obj-42" : [ "vst~[33]", "vst~[1]", 0 ],
+			"obj-2.1::obj-43" : [ "live.gain~[10]", "live.gain~", 0 ],
+			"obj-2.2::obj-21" : [ "vst~[22]", "vst~", 0 ],
+			"obj-2.2::obj-29" : [ "live.gain~[5]", "live.gain~", 0 ],
+			"obj-2.2::obj-31" : [ "vst~[20]", "vst~[1]", 0 ],
+			"obj-2.2::obj-33" : [ "vst~[21]", "vst~[2]", 0 ],
+			"obj-2.2::obj-42" : [ "vst~[23]", "vst~[1]", 0 ],
+			"obj-2.2::obj-43" : [ "live.gain~[4]", "live.gain~", 0 ],
+			"obj-2.3::obj-21" : [ "vst~[26]", "vst~", 0 ],
+			"obj-2.3::obj-29" : [ "live.gain~[7]", "live.gain~", 0 ],
+			"obj-2.3::obj-31" : [ "vst~[25]", "vst~[1]", 0 ],
+			"obj-2.3::obj-33" : [ "vst~[24]", "vst~[2]", 0 ],
+			"obj-2.3::obj-42" : [ "vst~[27]", "vst~[1]", 0 ],
+			"obj-2.3::obj-43" : [ "live.gain~[6]", "live.gain~", 0 ],
+			"obj-2.4::obj-21" : [ "vst~[30]", "vst~", 0 ],
+			"obj-2.4::obj-29" : [ "live.gain~[9]", "live.gain~", 0 ],
+			"obj-2.4::obj-31" : [ "vst~[28]", "vst~[1]", 0 ],
+			"obj-2.4::obj-33" : [ "vst~[31]", "vst~[2]", 0 ],
+			"obj-2.4::obj-42" : [ "vst~[29]", "vst~[1]", 0 ],
+			"obj-2.4::obj-43" : [ "live.gain~[8]", "live.gain~", 0 ],
+			"obj-5.1::obj-111" : [ "live.gain~", "live.gain~", 0 ],
 			"obj-5.1::obj-3" : [ "amxd~[3]", "amxd~", 0 ],
+			"obj-5.1::obj-31" : [ "vst~", "vst~", 0 ],
+			"obj-5.1::obj-34" : [ "vst~[2]", "vst~[2]", 0 ],
+			"obj-5.1::obj-57" : [ "vst~[3]", "vst~[3]", 0 ],
+			"obj-5.1::obj-62" : [ "vst~[1]", "vst~[1]", 0 ],
+			"obj-5.1::obj-64" : [ "vst~[4]", "vst~[4]", 0 ],
+			"obj-5.2::obj-111" : [ "live.gain~[1]", "live.gain~", 0 ],
 			"obj-5.2::obj-3" : [ "amxd~[4]", "amxd~", 0 ],
+			"obj-5.2::obj-31" : [ "vst~[8]", "vst~", 0 ],
+			"obj-5.2::obj-34" : [ "vst~[6]", "vst~[2]", 0 ],
+			"obj-5.2::obj-57" : [ "vst~[9]", "vst~[3]", 0 ],
+			"obj-5.2::obj-62" : [ "vst~[7]", "vst~[1]", 0 ],
+			"obj-5.2::obj-64" : [ "vst~[5]", "vst~[4]", 0 ],
+			"obj-5.3::obj-111" : [ "live.gain~[2]", "live.gain~", 0 ],
 			"obj-5.3::obj-3" : [ "amxd~[1]", "amxd~", 0 ],
+			"obj-5.3::obj-31" : [ "vst~[13]", "vst~", 0 ],
+			"obj-5.3::obj-34" : [ "vst~[14]", "vst~[2]", 0 ],
+			"obj-5.3::obj-57" : [ "vst~[12]", "vst~[3]", 0 ],
+			"obj-5.3::obj-62" : [ "vst~[10]", "vst~[1]", 0 ],
+			"obj-5.3::obj-64" : [ "vst~[11]", "vst~[4]", 0 ],
+			"obj-5.4::obj-111" : [ "live.gain~[3]", "live.gain~", 0 ],
 			"obj-5.4::obj-3" : [ "amxd~[2]", "amxd~", 0 ],
+			"obj-5.4::obj-31" : [ "vst~[17]", "vst~", 0 ],
+			"obj-5.4::obj-34" : [ "vst~[16]", "vst~[2]", 0 ],
+			"obj-5.4::obj-57" : [ "vst~[19]", "vst~[3]", 0 ],
+			"obj-5.4::obj-62" : [ "vst~[18]", "vst~[1]", 0 ],
+			"obj-5.4::obj-64" : [ "vst~[15]", "vst~[4]", 0 ],
 			"parameterbanks" : 			{
 				"0" : 				{
 					"index" : 0,
@@ -322,10 +453,162 @@
 
 			}
 ,
+			"parameter_overrides" : 			{
+				"obj-2.1::obj-29" : 				{
+					"parameter_longname" : "live.gain~[11]"
+				}
+,
+				"obj-2.1::obj-43" : 				{
+					"parameter_longname" : "live.gain~[10]"
+				}
+,
+				"obj-2.2::obj-29" : 				{
+					"parameter_longname" : "live.gain~[5]"
+				}
+,
+				"obj-2.2::obj-43" : 				{
+					"parameter_longname" : "live.gain~[4]"
+				}
+,
+				"obj-2.3::obj-29" : 				{
+					"parameter_longname" : "live.gain~[7]"
+				}
+,
+				"obj-2.3::obj-43" : 				{
+					"parameter_longname" : "live.gain~[6]"
+				}
+,
+				"obj-2.4::obj-29" : 				{
+					"parameter_longname" : "live.gain~[9]"
+				}
+,
+				"obj-2.4::obj-43" : 				{
+					"parameter_longname" : "live.gain~[8]"
+				}
+,
+				"obj-5.2::obj-111" : 				{
+					"parameter_longname" : "live.gain~[1]"
+				}
+,
+				"obj-5.3::obj-111" : 				{
+					"parameter_longname" : "live.gain~[2]"
+				}
+,
+				"obj-5.4::obj-111" : 				{
+					"parameter_longname" : "live.gain~[3]"
+				}
+
+			}
+,
 			"inherited_shortname" : 1
 		}
 ,
 		"dependency_cache" : [ 			{
+				"name" : "Emergence.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "TAL-Vocoder-2.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "TAL-Vocoder-2_20251104.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "TAL-Vocoder-2_20251104_1.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "TAL-Vocoder-2_20251104_2.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "ValhallaSupermassive.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "ValhallaSupermassive_20250314.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "ValhallaSupermassive_20251107.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "ValhallaSupermassive_20251107_1.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "ValhallaSupermassive_20251107_2.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "ValhallaSupermassive_20251107_3.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "downloaded.maxpat",
+				"bootpath" : "~/Documents/CS/Projects/string-theory/audio",
+				"patcherrelativepath" : ".",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "kHs Bitcrush.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "kHs Filter.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "kHs Transient Shaper.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
 				"name" : "minsecmil.js",
 				"type" : "TEXT",
 				"implicit" : 1

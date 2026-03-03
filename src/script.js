@@ -130,7 +130,7 @@ const start = async () => {
 const end = async () => {
   recognition.stop();
   const blob = await recorder.stopRecording();
-  const name = `${ id }_${ first ? '0' : history.length + 1 }`;
+  const name = `${ id }-${ first ? '0' : history.length + 1 }`;
 
   if (first) {
     await sb.storage
